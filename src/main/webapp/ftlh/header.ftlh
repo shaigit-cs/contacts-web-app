@@ -17,14 +17,14 @@
                 <li class="nav-item active">
                     <span class="nav-link"><i class="far fa-lg fa-address-book"></i></span>
                 </li>
-                <li class="nav-item active">
-                    <a class="nav-link" href="#">Lista</a>
+                <li class="nav-item ${activeList}">
+                    <a class="nav-link" href="list">Lista</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Szukaj</a>
+                <li class="nav-item ${activeSearch}">
+                    <a class="nav-link" href="search">Szukaj</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Dodaj</a>
+                <li class="nav-item ${activeAdd}">
+                    <a class="nav-link" href="add">Dodaj</a>
                 </li>
             </ul>
             <ul class="navbar-nav ml-auto">

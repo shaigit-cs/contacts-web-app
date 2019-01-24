@@ -6,6 +6,6 @@ import javax.enterprise.context.ApplicationScoped;
 public class Text {
 
     public String showText() {
-        return "kontakty";
+        return "list";
     }
 }

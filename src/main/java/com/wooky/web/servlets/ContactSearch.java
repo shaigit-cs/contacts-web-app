@@ -1,6 +1,5 @@
 package com.wooky.web.servlets;
 
-import com.wooky.core.Text;
 import com.wooky.web.freemaker.TemplateProvider;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
@@ -14,26 +13,23 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-@WebServlet(urlPatterns = "index.html")
-public class Index extends HttpServlet {
+@WebServlet(urlPatterns = "search")
+public class ContactSearch extends HttpServlet {
 
-    private static final String TEMPLATE_INDEX = "index";
+    private static final String TEMPLATE_INDEX = "contact-search";
 
     @Inject
     private TemplateProvider templateProvider;
 
-    @Inject
-    private Text text;
-
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-
-        String fmText = text.showText();
 
         resp.addHeader("Content-Type", "text/html; charset=utf-8");
 
         Map<String, Object> model = new HashMap<>();
-        model.put("text", fmText);
+        model.put("activeList", "");
+        model.put("activeSearch", "active");
+        model.put("activeAdd", "");
 
         Template template = templateProvider.getTemplate(
                 getServletContext(), TEMPLATE_INDEX);
