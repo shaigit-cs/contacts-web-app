@@ -38,6 +38,7 @@ public class ContactSearch extends HttpServlet {
         model.put("activeList", "");
         model.put("activeSearch", "active");
         model.put("activeAdd", "");
+        model.put("currentLanguage", translator.getLanguage());
         model.put("referrer", "&referrer=search");
         modelHandler(model, MENU_LIST);
         modelHandler(model, MENU_SEARCH);

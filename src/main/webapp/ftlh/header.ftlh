@@ -29,19 +29,31 @@
             </ul>
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a class="nav-link disabled" href="language?lang=pl${referrer}">PL</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="language?lang=en${referrer}">EN</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="language?lang=de${referrer}">DE</a>
+                    <a class="nav-link" href="#">${menu_login}</a>
                 </li>
                 <li class="nav-item">
                     <span class="navbar-text" style="padding-left: 10px; padding-right: 10px">|</span>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">${menu_login}</a>
+                    <#if currentLanguage == "pl">
+                        <a class="nav-link disabled" href="language?lang=pl${referrer}">PL</a>
+                    <#else>
+                        <a class="nav-link" href="language?lang=pl${referrer}">PL</a>
+                    </#if>
+                </li>
+                <li class="nav-item">
+                    <#if currentLanguage == "en">
+                        <a class="nav-link disabled" href="language?lang=en${referrer}">EN</a>
+                    <#else>
+                        <a class="nav-link" href="language?lang=en${referrer}">EN</a>
+                    </#if>
+                </li>
+                <li class="nav-item">
+                    <#if currentLanguage == "de">
+                        <a class="nav-link disabled" href="language?lang=de${referrer}">DE</a>
+                    <#else>
+                        <a class="nav-link" href="language?lang=de${referrer}">DE</a>
+                    </#if>
                 </li>
             </ul>
         </nav>

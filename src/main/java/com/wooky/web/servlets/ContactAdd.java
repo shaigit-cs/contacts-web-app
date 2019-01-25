@@ -42,6 +42,7 @@ public class ContactAdd extends HttpServlet {
         model.put("activeList", "");
         model.put("activeSearch", "");
         model.put("activeAdd", "active");
+        model.put("currentLanguage", translator.getLanguage());
         model.put("referrer", "&referrer=add");
         modelHandler(model, MENU_LIST);
         modelHandler(model, MENU_SEARCH);
