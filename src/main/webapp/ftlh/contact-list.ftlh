@@ -3,7 +3,7 @@
         <div class="row">
             <div class="col-12" id="main">
 
-                ${text}
+                list
                 <br>
                 <br>
                 <br>

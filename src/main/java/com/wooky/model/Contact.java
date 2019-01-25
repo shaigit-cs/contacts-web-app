@@ -9,7 +9,7 @@ public class Contact {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+    @Column(name = "contact_id")
     private Long id;
 
     @Column(name = "name")
@@ -30,10 +30,6 @@ public class Contact {
 
     public Long getId() {
         return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getName() {

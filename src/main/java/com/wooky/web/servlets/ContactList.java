@@ -1,6 +1,6 @@
 package com.wooky.web.servlets;
 
-import com.wooky.core.Text;
+import com.wooky.core.Translator;
 import com.wooky.web.freemaker.TemplateProvider;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
@@ -18,17 +18,19 @@ import java.util.Map;
 public class ContactList extends HttpServlet {
 
     private static final String TEMPLATE_INDEX = "contact-list";
+    private static final String MENU_LIST = "menu_list";
+    private static final String MENU_SEARCH = "menu_search";
+    private static final String MENU_ADD = "menu_add";
+    private static final String MENU_LOGIN = "menu_login";
 
     @Inject
     private TemplateProvider templateProvider;
 
     @Inject
-    private Text text;
+    private Translator translator;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-
-        String fmText = text.showText();
 
         resp.addHeader("Content-Type", "text/html; charset=utf-8");
 
@@ -36,7 +38,11 @@ public class ContactList extends HttpServlet {
         model.put("activeList", "active");
         model.put("activeSearch", "");
         model.put("activeAdd", "");
-        model.put("text", fmText);
+        model.put("referrer", "&referrer=list");
+        modelHandler(model, MENU_LIST);
+        modelHandler(model, MENU_SEARCH);
+        modelHandler(model, MENU_ADD);
+        modelHandler(model, MENU_LOGIN);
 
         Template template = templateProvider.getTemplate(
                 getServletContext(), TEMPLATE_INDEX);
@@ -46,5 +52,9 @@ public class ContactList extends HttpServlet {
         } catch (TemplateException e) {
             e.printStackTrace();
         }
+    }
+
+    private void modelHandler(Map<String, Object> model, String keyName) {
+        model.put(keyName, translator.translate(keyName));
     }
 }

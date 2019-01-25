@@ -6,14 +6,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.inject.Inject;
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.transaction.Transactional;
 import java.io.IOException;
-import java.time.LocalDate;
-import java.util.Arrays;
 
 @Transactional
 @WebServlet(urlPatterns = "handler")
@@ -25,7 +25,7 @@ public class ContactHandler extends HttpServlet {
     private ContactDao contactDao;
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         final String action = req.getParameter("action");
         LOG.info("Requested action: {}", action);
@@ -42,14 +42,24 @@ public class ContactHandler extends HttpServlet {
 //        }
     }
 
-    private void addContact(HttpServletRequest req, HttpServletResponse resp)
-            throws IOException {
+    private void addContact(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+        String addStatus;
 
         final Contact c = new Contact();
         c.setName(req.getParameter("name"));
         c.setSurname(req.getParameter("surname"));
 
-        contactDao.save(c);
-        LOG.info("Saved a new contact object: {}", c);
+        try {
+            contactDao.save(c);
+            addStatus = "Zapisano";
+            LOG.info("Saved a new contact object: {}", c);
+        } catch (Exception e) {
+            addStatus = "Problem z zapisem, sprawdź logi...";
+        }
+
+        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/add");
+        req.setAttribute("addStatus", addStatus);
+        dispatcher.forward(req, resp);
     }
 }

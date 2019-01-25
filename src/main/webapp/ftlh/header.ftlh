@@ -18,30 +18,30 @@
                     <span class="nav-link"><i class="far fa-lg fa-address-book"></i></span>
                 </li>
                 <li class="nav-item ${activeList}">
-                    <a class="nav-link" href="list">Lista</a>
+                    <a class="nav-link" href="list">${menu_list}</a>
                 </li>
                 <li class="nav-item ${activeSearch}">
-                    <a class="nav-link" href="search">Szukaj</a>
+                    <a class="nav-link" href="search">${menu_search}</a>
                 </li>
                 <li class="nav-item ${activeAdd}">
-                    <a class="nav-link" href="add">Dodaj</a>
+                    <a class="nav-link" href="add">${menu_add}</a>
                 </li>
             </ul>
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a class="nav-link disabled" href="#">PL</a>
+                    <a class="nav-link disabled" href="language?lang=pl${referrer}">PL</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">EN</a>
+                    <a class="nav-link" href="language?lang=en${referrer}">EN</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">DE</a>
+                    <a class="nav-link" href="language?lang=de${referrer}">DE</a>
                 </li>
                 <li class="nav-item">
                     <span class="navbar-text" style="padding-left: 10px; padding-right: 10px">|</span>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Zaloguj</a>
+                    <a class="nav-link" href="#">${menu_login}</a>
                 </li>
             </ul>
         </nav>

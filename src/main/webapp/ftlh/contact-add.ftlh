@@ -7,13 +7,14 @@
             <input type="hidden" name="action" value="add"/>
             <div class="form-row">
                 <div class="col-md-3 mt-1 mb-3">
-                    <input type="text" class="form-control" placeholder="Imię" name="name" required autocomplete="off">
+                    <input type="text" class="form-control" placeholder="${content_name}" name="name" required autocomplete="off">
                 </div>
                 <div class="col-md-3 mt-1 mb-3">
-                    <input type="text" class="form-control" placeholder="Nazwisko" name="surname" required autocomplete="off">
+                    <input type="text" class="form-control" placeholder="${content_surname}" name="surname" required autocomplete="off">
                 </div>
             </div>
-            <button class="btn btn-secondary btn-sm" type="submit">Zapisz</button>
+            <button class="btn btn-secondary float-left" type="submit">${content_save}</button>
+            <p class="text-muted btn"><em>${addStatus}</em></p>
         </form>
 
     </div>
