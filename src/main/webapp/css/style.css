@@ -4,20 +4,22 @@ body {
 
 #main {
     background-color: #f8f9fa;
+    padding-top: 20px;
     padding-bottom: 20px;
 }
 
-#error {
+#error, #empty_list {
     text-align: center;
 }
 
 @media screen and (max-width: 767px) {
     body {
-        padding-top: 136px;
+        padding-top: 216px;
     }
 
     #main {
         padding-left: 15px;
+        padding-right: 25px;
     }
 }
 
@@ -28,6 +30,7 @@ body {
 
     #main {
         padding-left: 25px;
+        padding-right: 25px;
     }
 }
 
@@ -38,5 +41,6 @@ body {
 
     #main {
         padding-left: 25px;
+        padding-right: 25px;
     }
 }

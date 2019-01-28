@@ -1,5 +1,6 @@
 package com.wooky.web.servlets;
 
+import com.wooky.core.Translator;
 import com.wooky.dao.ContactDao;
 import com.wooky.model.Contact;
 import org.slf4j.Logger;
@@ -20,9 +21,17 @@ import java.io.IOException;
 public class ContactHandler extends HttpServlet {
 
     private static final Logger LOG = LoggerFactory.getLogger(ContactHandler.class);
+    private static final String INFO_SAVE = "info_save";
+    private static final String INFO_SAVE_ISSUE = "info_save_issue";
 
     @Inject
     private ContactDao contactDao;
+
+    @Inject
+    private Translator translator;
+
+    @Inject
+    private LanguageHandler languageHandler;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -44,6 +53,7 @@ public class ContactHandler extends HttpServlet {
 
     private void addContact(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
+        String languageFromCookie = languageHandler.getLanguage(req);
         String addStatus;
 
         final Contact c = new Contact();
@@ -52,10 +62,10 @@ public class ContactHandler extends HttpServlet {
 
         try {
             contactDao.save(c);
-            addStatus = "Zapisano";
+            addStatus = translator.translate(INFO_SAVE, languageFromCookie);
             LOG.info("Saved a new contact object: {}", c);
         } catch (Exception e) {
-            addStatus = "Problem z zapisem, sprawdź logi...";
+            addStatus = translator.translate(INFO_SAVE_ISSUE, languageFromCookie);
         }
 
         RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/add");

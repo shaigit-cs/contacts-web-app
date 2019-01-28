@@ -18,10 +18,6 @@ import java.util.Map;
 public class ContactSearch extends HttpServlet {
 
     private static final String TEMPLATE_INDEX = "contact-search";
-    private static final String MENU_LIST = "menu_list";
-    private static final String MENU_SEARCH = "menu_search";
-    private static final String MENU_ADD = "menu_add";
-    private static final String MENU_LOGIN = "menu_login";
 
     @Inject
     private TemplateProvider templateProvider;
@@ -29,21 +25,34 @@ public class ContactSearch extends HttpServlet {
     @Inject
     private Translator translator;
 
+    @Inject
+    private LanguageHandler languageHandler;
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 
         resp.addHeader("Content-Type", "text/html; charset=utf-8");
 
+        String language;
+
+        if (req.getAttribute("language") != null) {
+            language = req.getAttribute("language").toString();
+        } else {
+            language = languageHandler.getLanguage(req);
+        }
+
+        String[] translationKeys = translator.translationKeys();
+
         Map<String, Object> model = new HashMap<>();
         model.put("activeList", "");
         model.put("activeSearch", "active");
         model.put("activeAdd", "");
-        model.put("currentLanguage", translator.getLanguage());
+        model.put("currentLanguage", language);
         model.put("referrer", "&referrer=search");
-        modelHandler(model, MENU_LIST);
-        modelHandler(model, MENU_SEARCH);
-        modelHandler(model, MENU_ADD);
-        modelHandler(model, MENU_LOGIN);
+
+        for (String i : translationKeys) {
+            model.put(i, translator.translate(i, language));
+        }
 
         Template template = templateProvider.getTemplate(
                 getServletContext(), TEMPLATE_INDEX);
@@ -53,9 +62,5 @@ public class ContactSearch extends HttpServlet {
         } catch (TemplateException e) {
             e.printStackTrace();
         }
-    }
-
-    private void modelHandler(Map<String, Object> model, String keyName) {
-        model.put(keyName, translator.translate(keyName));
     }
 }

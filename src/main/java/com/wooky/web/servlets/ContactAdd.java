@@ -19,13 +19,6 @@ public class ContactAdd extends HttpServlet {
 
     private static final String TEMPLATE_INDEX = "contact-add";
     private static final String ADD_STATUS = "addStatus";
-    private static final String MENU_LIST = "menu_list";
-    private static final String MENU_SEARCH = "menu_search";
-    private static final String MENU_ADD = "menu_add";
-    private static final String MENU_LOGIN = "menu_login";
-    private static final String CONTENT_NAME = "content_name";
-    private static final String CONTENT_SURNAME = "content_surname";
-    private static final String CONTENT_SAVE = "content_save";
 
     @Inject
     private TemplateProvider templateProvider;
@@ -33,24 +26,34 @@ public class ContactAdd extends HttpServlet {
     @Inject
     private Translator translator;
 
+    @Inject
+    private LanguageHandler languageHandler;
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 
         resp.addHeader("Content-Type", "text/html; charset=utf-8");
 
+        String language;
+
+        if (req.getAttribute("language") != null) {
+            language = req.getAttribute("language").toString();
+        } else {
+            language = languageHandler.getLanguage(req);
+        }
+
+        String[] translationKeys = translator.translationKeys();
+
         Map<String, Object> model = new HashMap<>();
         model.put("activeList", "");
         model.put("activeSearch", "");
         model.put("activeAdd", "active");
-        model.put("currentLanguage", translator.getLanguage());
+        model.put("currentLanguage", language);
         model.put("referrer", "&referrer=add");
-        modelHandler(model, MENU_LIST);
-        modelHandler(model, MENU_SEARCH);
-        modelHandler(model, MENU_ADD);
-        modelHandler(model, MENU_LOGIN);
-        modelHandler(model, CONTENT_NAME);
-        modelHandler(model, CONTENT_SURNAME);
-        modelHandler(model, CONTENT_SAVE);
+
+        for (String i : translationKeys) {
+            model.put(i, translator.translate(i, language));
+        }
 
         if (req.getAttribute(ADD_STATUS) == null) {
             model.put(ADD_STATUS, "");
@@ -68,9 +71,4 @@ public class ContactAdd extends HttpServlet {
             e.printStackTrace();
         }
     }
-
-    private void modelHandler(Map<String, Object> model, String keyName) {
-        model.put(keyName, translator.translate(keyName));
-    }
 }
-
