@@ -15,8 +15,16 @@
         <servlet-name>index</servlet-name>
         <url-pattern>index.html</url-pattern>
     </servlet-mapping>
+    <servlet>
+        <servlet-name>error</servlet-name>
+        <servlet-class>com.wooky.web.servlets.Error</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>error</servlet-name>
+        <url-pattern>/error.html</url-pattern>
+    </servlet-mapping>
     <error-page>
-        <location>/html/error.html</location>
+        <location>/error.html</location>
     </error-page>
     <data-source>
         <name>java:ds/contacts-app</name>

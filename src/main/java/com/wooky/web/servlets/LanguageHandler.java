@@ -3,8 +3,6 @@ package com.wooky.web.servlets;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
@@ -12,13 +10,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet("/language")
+@WebServlet("language")
 public class LanguageHandler extends HttpServlet {
 
     private static final Logger LOG = LoggerFactory.getLogger(LanguageHandler.class);
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 
         String referrer = req.getParameter("referrer");
         String language = req.getParameter("lang");
@@ -26,11 +24,10 @@ public class LanguageHandler extends HttpServlet {
         Cookie cookie = new Cookie("language", language);
         resp.addCookie(cookie);
         LOG.info("The following language was stored and set: {}", language);
-
-        LOG.info("Referrer: {}", referrer);
-        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/" + referrer);
         req.setAttribute("language", language);
-        dispatcher.forward(req, resp);
+
+        LOG.info("Redirecting back to referrer: {}", referrer);
+        resp.sendRedirect(referrer);
     }
 
     public String getLanguage(HttpServletRequest req) {
@@ -47,7 +44,7 @@ public class LanguageHandler extends HttpServlet {
             }
         }
 
-        LOG.info("Following language in use: {}", result);
+        LOG.info("Following language bundle in use: {}", result);
         return result;
     }
 }

@@ -7,8 +7,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.inject.Inject;
-import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -34,31 +32,31 @@ public class ContactHandler extends HttpServlet {
     private LanguageHandler languageHandler;
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 
         final String action = req.getParameter("action");
         LOG.info("Requested action: {}", action);
 
         if (action.equals("add")) {
             addContact(req, resp);
+        } else if (action.equals("update")) {
+            updateContact(req, resp);
+        } else if (action.equals("delete")) {
+            deleteContact(req, resp);
         }
-//        else if (action.equals("delete")) {
-//            deleteContact(req, resp);
-//        } else if (action.equals("update")) {
-//            updateContact(req, resp);
-//        } else if (action.equals("findAll")) {
-//            findAll(req, resp);
-//        }
     }
 
-    private void addContact(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    private void addContact(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 
         String languageFromCookie = languageHandler.getLanguage(req);
         String addStatus;
 
         final Contact c = new Contact();
-        c.setName(req.getParameter("name"));
-        c.setSurname(req.getParameter("surname"));
+        String name = req.getParameter("name");
+        String surname = req.getParameter("surname");
+
+        c.setName(name.substring(0, 1).toUpperCase() + name.substring(1).toLowerCase());
+        c.setSurname(surname.substring(0, 1).toUpperCase() + surname.substring(1).toLowerCase());
 
         try {
             contactDao.save(c);
@@ -68,8 +66,37 @@ public class ContactHandler extends HttpServlet {
             addStatus = translator.translate(INFO_SAVE_ISSUE, languageFromCookie);
         }
 
-        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/add");
         req.setAttribute("addStatus", addStatus);
-        dispatcher.forward(req, resp);
+        resp.sendRedirect("add");
+    }
+
+    private void updateContact(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+
+        final Long id = Long.parseLong(req.getParameter("id"));
+        LOG.info("Updating contact with id: {}", id);
+
+        final Contact existingContact = contactDao.findById(id);
+
+        if (existingContact == null) {
+            LOG.info("No contact found with id = {}, nothing to be updated", id);
+        } else {
+            existingContact.setName(req.getParameter("name"));
+            existingContact.setSurname(req.getParameter("surname"));
+
+            contactDao.update(existingContact);
+            LOG.info("Contact object updated: {}", existingContact);
+        }
+
+        resp.sendRedirect("list");
+    }
+
+    private void deleteContact(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+
+        final Long id = Long.parseLong(req.getParameter("id"));
+        LOG.info("Deleting contact with id: {}", id);
+
+        contactDao.delete(id);
+
+        resp.sendRedirect("list");
     }
 }

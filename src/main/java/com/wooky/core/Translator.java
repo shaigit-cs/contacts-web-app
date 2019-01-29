@@ -18,7 +18,13 @@ public class Translator {
     private static final String CONTENT_NAME = "content_name";
     private static final String CONTENT_SURNAME = "content_surname";
     private static final String CONTENT_SAVE = "content_save";
+    private static final String CONTENT_CLOSE = "content_close";
+    private static final String CONTENT_EDIT = "content_edit";
+    private static final String CONTENT_UPDATE = "content_update";
+    private static final String CONTENT_DELETE = "content_delete";
     private static final String LIST_EMPTY = "list_empty";
+    private static final String ERROR_INFO = "error_info";
+    private static final String ERROR_RETURN = "error_return";
 
     public String translate(String translationInput, String language) {
 
@@ -33,7 +39,8 @@ public class Translator {
 
     public String[] translationKeys() {
 
-        String[] output = { MENU_LIST, MENU_SEARCH, MENU_ADD, MENU_LOGIN, CONTENT_NAME, CONTENT_SURNAME, CONTENT_SAVE, LIST_EMPTY };
+        String[] output = { MENU_LIST, MENU_SEARCH, MENU_ADD, MENU_LOGIN, CONTENT_NAME, CONTENT_SURNAME, CONTENT_SAVE,
+                CONTENT_CLOSE, CONTENT_EDIT, CONTENT_UPDATE, CONTENT_DELETE, LIST_EMPTY, ERROR_INFO, ERROR_RETURN };
 
         return output;
     }

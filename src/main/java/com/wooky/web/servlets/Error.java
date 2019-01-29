@@ -1,8 +1,6 @@
 package com.wooky.web.servlets;
 
 import com.wooky.core.Translator;
-import com.wooky.dao.ContactDao;
-import com.wooky.model.Contact;
 import com.wooky.web.freemaker.TemplateProvider;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
@@ -14,13 +12,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
-@WebServlet(urlPatterns = "list")
-public class ContactList extends HttpServlet {
+@WebServlet(urlPatterns = "error")
+public class Error extends HttpServlet {
 
-    private static final String TEMPLATE_INDEX = "contact-list";
+    private static final String TEMPLATE_INDEX = "error";
 
     @Inject
     private TemplateProvider templateProvider;
@@ -30,22 +27,6 @@ public class ContactList extends HttpServlet {
 
     @Inject
     private LanguageHandler languageHandler;
-
-    @Inject
-    private ContactDao contactDao;
-
-    @Override
-    public void init() {
-
-        Contact c1 = new Contact("Łukasz", "Marwitz");
-        contactDao.save(c1);
-        Contact c2 = new Contact("Ada", "Adamska");
-        contactDao.save(c2);
-        Contact c3 = new Contact("Zenek", "Martyniuk");
-        contactDao.save(c3);
-        Contact c4 = new Contact("Mirek", "Zakrzewski");
-        contactDao.save(c4);
-    }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
@@ -63,18 +44,15 @@ public class ContactList extends HttpServlet {
         String[] translationKeys = translator.translationKeys();
 
         Map<String, Object> model = new HashMap<>();
-        model.put("activeList", "active");
+        model.put("activeList", "");
         model.put("activeSearch", "");
         model.put("activeAdd", "");
         model.put("currentLanguage", language);
-        model.put("referrer", "&referrer=list");
+        model.put("referrer", "&referrer=error");
 
         for (String i : translationKeys) {
             model.put(i, translator.translate(i, language));
         }
-
-        final List<Contact> contactList = contactDao.findAll();
-        model.put("contactList", contactList);
 
         Template template = templateProvider.getTemplate(
                 getServletContext(), TEMPLATE_INDEX);

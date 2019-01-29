@@ -3,19 +3,25 @@
         <div class="row">
             <div class="col-12" id="main">
 
-                <#assign lastLetter = "o">
+                <#assign nullLetter = "">
                 <#list contactList?sort_by("surname") as contact>
 
-                    <#if lastLetter != contact.surname?substring(0, 1)>
+                <form method="post" action="details">
+
+                    <#if nullLetter != contact.surname?substring(0, 1)>
                         <p><b>${contact.surname?substring(0, 1)}</b></p>
                     </#if>
 
-                    <#assign lastLetter = contact.surname?substring(0, 1)>
-                        <p>${contact.name} <b>${contact.surname}</b></p>
+                    <#assign nullLetter = contact.surname?substring(0, 1)>
+                        <input type="hidden" name="id" value="${contact.id}"/>
+                        <button class="btn" type="submit">${contact.name} <b>${contact.surname}</button>
+
 
                     <#if contact_has_next>
                         <hr class="my-4">
                     </#if>
+
+                </form>
 
                 <#else>
                     <p id="empty_list">${list_empty}</p>
