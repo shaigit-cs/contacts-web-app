@@ -8,7 +8,7 @@
                 <input type="hidden" name="id" value="${contactDetails.id}"/>
                 <input type="hidden" name="edit"/>
         <#else>
-            <form method="post" action="handler">
+            <form method="get" action="handler">
                 <input type="hidden" name="id" value="${contactDetails.id}"/>
         </#if>
                 <div class="form-row">

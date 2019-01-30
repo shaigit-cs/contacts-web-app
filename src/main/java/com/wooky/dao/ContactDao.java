@@ -43,4 +43,11 @@ public class ContactDao {
 
         return query.getResultList();
     }
+
+    public List<Contact> search(String phrase) {
+
+        final Query query = entityManager.createQuery("SELECT c FROM Contact c WHERE c.name LIKE :phrase OR c.surname LIKE :phrase").setParameter("phrase", "%"+phrase+"%");
+
+        return query.getResultList();
+    }
 }

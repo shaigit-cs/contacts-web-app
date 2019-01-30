@@ -3,7 +3,7 @@
 <div class="row">
     <div class="col-12" id="main">
 
-        <form method="post" action="handler">
+        <form method="get" action="handler">
             <input type="hidden" name="action" value="add"/>
             <div class="form-row">
                 <div class="col-md-3 mt-1 mb-3">
