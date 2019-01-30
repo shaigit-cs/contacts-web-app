@@ -1,6 +1,6 @@
 # Contacts Web App
 
-##### Instructions to setup MySQL data base in Docker for the application to run locally:
+##### Instructions to setup MySQL database in Docker for the application to run locally:
 
 ``` shell
 $ docker run --detach --name=mysql-docker --env="MYSQL_ROOT_PASSWORD=pass123" --env="TZ=Europe/Warsaw" --publish 6603:3306 mysql
