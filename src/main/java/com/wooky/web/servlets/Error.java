@@ -45,7 +45,6 @@ public class Error extends HttpServlet {
 
         Map<String, Object> model = new HashMap<>();
         model.put("activeList", "");
-        model.put("activeSearch", "");
         model.put("activeAdd", "");
         model.put("currentLanguage", language);
         model.put("referrer", "&referrer=error");

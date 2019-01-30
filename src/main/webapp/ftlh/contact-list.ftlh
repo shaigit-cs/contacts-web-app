@@ -8,7 +8,7 @@
                 <#if searchResultSize??>
                     <#assign visible = false>
                     <div class="row">
-                        <p class="font-weight-light" id="search_result_info"><a id="search_close_button" href="list" title="close"><i class="fas fa-times-circle"></i></a>${search_info_part_1} <b>${searchPhrase}</b> ${search_info_part_2} <b>${searchResultSize}</b></p>
+                        <p class="font-weight-light" id="search_result_info"><a id="search_close_button" href="list"><i class="fas fa-times-circle"></i></a>${search_info_part_1} <b>${searchPhrase}</b> ${search_info_part_2} <b>${searchResultSize}</b></p>
                     </div>
                 </#if>
 
