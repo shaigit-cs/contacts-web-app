@@ -12,24 +12,24 @@
     <body>
 
     <div class="container">
-        <nav class="navbar fixed-top navbar-expand-md navbar-light bg-light container">
+        <nav class="navbar fixed-top navbar-expand-md navbar-light bg-light container" id="menu_shadow">
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                    <span class="nav-link"><i class="far fa-lg fa-address-book"></i></span>
-                </li>
                 <li class="nav-item ${activeList}">
-                    <a class="nav-link" href="list">${menu_list}</a>
+                    <a class="nav-link" href="list" title="${menu_list}"><i class="fas fa-lg fa-list"></i></a>
                 </li>
-                <li class="nav-item ${activeSearch}">
-                    <a class="nav-link" href="search">${menu_search}</a>
+                <li class="nav-item">
+                    <form method="get" action="handler">
+                        <input type="hidden" name="action" value="search"/>
+                        <input class="form-control mr-sm-2" id="search_box" type="search" name="phrase" placeholder="${menu_search}" aria-label="Search" required autocomplete="off">
+                    </form>
                 </li>
                 <li class="nav-item ${activeAdd}">
-                    <a class="nav-link" href="add">${menu_add}</a>
+                    <a class="nav-link" href="add" title="${menu_add}"><i class="fas fa-lg fa-user-plus"></i></a>
                 </li>
             </ul>
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="#">${menu_login}</a>
+                    <a class="nav-link disabled" href="#">${menu_login}</a>
                 </li>
                 <li class="nav-item">
                     <span class="navbar-text" style="padding-left: 10px; padding-right: 10px">|</span>

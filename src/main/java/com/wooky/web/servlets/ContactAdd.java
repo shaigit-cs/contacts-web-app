@@ -46,7 +46,6 @@ public class ContactAdd extends HttpServlet {
 
         Map<String, Object> model = new HashMap<>();
         model.put("activeList", "");
-        model.put("activeSearch", "");
         model.put("activeAdd", "active");
         model.put("currentLanguage", language);
         model.put("referrer", "&referrer=add");

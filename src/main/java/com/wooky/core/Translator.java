@@ -23,6 +23,8 @@ public class Translator {
     private static final String CONTENT_UPDATE = "content_update";
     private static final String CONTENT_DELETE = "content_delete";
     private static final String LIST_EMPTY = "list_empty";
+    private static final String SEARCH_INFO_PART_1 = "search_info_part_1";
+    private static final String SEARCH_INFO_PART_2 = "search_info_part_2";
     private static final String ERROR_INFO = "error_info";
     private static final String ERROR_RETURN = "error_return";
 
@@ -40,7 +42,8 @@ public class Translator {
     public String[] translationKeys() {
 
         String[] output = { MENU_LIST, MENU_SEARCH, MENU_ADD, MENU_LOGIN, CONTENT_NAME, CONTENT_SURNAME, CONTENT_SAVE,
-                CONTENT_CLOSE, CONTENT_EDIT, CONTENT_UPDATE, CONTENT_DELETE, LIST_EMPTY, ERROR_INFO, ERROR_RETURN };
+                CONTENT_CLOSE, CONTENT_EDIT, CONTENT_UPDATE, CONTENT_DELETE, LIST_EMPTY, ERROR_INFO, ERROR_RETURN,
+                SEARCH_INFO_PART_1, SEARCH_INFO_PART_2 };
 
         return output;
     }

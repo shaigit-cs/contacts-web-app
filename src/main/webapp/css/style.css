@@ -3,13 +3,38 @@ body {
 }
 
 #main {
-    background-color: #f8f9fa;
     padding-top: 20px;
     padding-bottom: 20px;
 }
 
 #error, #empty_list {
     text-align: center;
+}
+
+#menu_shadow {
+    box-shadow: 0px 4px 4px -4px #7c7c7d;
+}
+
+#search_box {
+    border: none;
+    border-bottom: 1px solid #a6abaf;
+    border-radius: 0;
+    background-color: transparent;
+}
+
+#search_box:focus {
+    box-shadow: none;
+    border-bottom: 1px solid black;
+}
+
+#search_close_button {
+    padding-right: 10px;
+}
+
+#search_result_info {
+    padding-left: 15px;
+    padding-bottom: 30px;
+    margin-bottom: 0px;
 }
 
 @media screen and (max-width: 767px) {

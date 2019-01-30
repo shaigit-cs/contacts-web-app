@@ -7,12 +7,15 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.inject.Inject;
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.transaction.Transactional;
 import java.io.IOException;
+import java.util.List;
 
 @Transactional
 @WebServlet(urlPatterns = "handler")
@@ -32,7 +35,7 @@ public class ContactHandler extends HttpServlet {
     private LanguageHandler languageHandler;
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
 
         final String action = req.getParameter("action");
         LOG.info("Requested action: {}", action);
@@ -43,10 +46,12 @@ public class ContactHandler extends HttpServlet {
             updateContact(req, resp);
         } else if (action.equals("delete")) {
             deleteContact(req, resp);
+        } else if (action.equals("search")) {
+            searchContact(req, resp);
         }
     }
 
-    private void addContact(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+    private void addContact(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
 
         String languageFromCookie = languageHandler.getLanguage(req);
         String addStatus;
@@ -67,7 +72,7 @@ public class ContactHandler extends HttpServlet {
         }
 
         req.setAttribute("addStatus", addStatus);
-        resp.sendRedirect("add");
+        req.getRequestDispatcher("/add").forward(req, resp);
     }
 
     private void updateContact(HttpServletRequest req, HttpServletResponse resp) throws IOException {
@@ -98,5 +103,18 @@ public class ContactHandler extends HttpServlet {
         contactDao.delete(id);
 
         resp.sendRedirect("list");
+    }
+
+    private void searchContact(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
+
+        final String searchPhrase = req.getParameter("phrase");
+        LOG.info("Searching contacts to contain following phrase: {}", searchPhrase);
+
+        List<Contact> searchResult = contactDao.search(searchPhrase);
+
+        req.setAttribute("searchResult", searchResult);
+        req.setAttribute("searchPhrase", searchPhrase);
+        req.setAttribute("searchResultSize", searchResult.size());
+        req.getRequestDispatcher("/list").forward(req, resp);
     }
 }
