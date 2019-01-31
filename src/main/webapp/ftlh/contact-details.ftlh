@@ -20,10 +20,10 @@
                     </div>
                 </div>
         <#if inputStatus?has_content>
-                <a class="btn btn-secondary" href="javascript:window.history.go(-1)">${content_close}</a>
+                <a class="btn btn-secondary" href="list">${content_close}</a>
                 <button class="btn btn-secondary" type="submit">${content_edit}</button>
         <#else>
-                <a class="btn btn-secondary" href="javascript:window.history.go(-2)">${content_close}</a>
+                <a class="btn btn-secondary" href="list">${content_close}</a>
                 <button class="btn btn-secondary" type="submit" name="action" value="update">${content_update}</button>
                 <button class="btn btn-danger" type="submit" name="action" value="delete">${content_delete}</button>
         </#if>
