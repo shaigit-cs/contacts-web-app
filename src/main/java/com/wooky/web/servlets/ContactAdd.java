@@ -18,7 +18,8 @@ import java.util.Map;
 public class ContactAdd extends HttpServlet {
 
     private static final String TEMPLATE_INDEX = "contact-add";
-    private static final String ADD_STATUS = "addStatus";
+    private static final String NOTIFICATION = "notification";
+    private static final String NOTIFICATION_CONTACT = "notificationContact";
 
     @Inject
     private TemplateProvider templateProvider;
@@ -34,13 +35,7 @@ public class ContactAdd extends HttpServlet {
 
         resp.addHeader("Content-Type", "text/html; charset=utf-8");
 
-        String language;
-
-        if (req.getAttribute("language") != null) {
-            language = req.getAttribute("language").toString();
-        } else {
-            language = languageHandler.getLanguage(req);
-        }
+        String language = languageHandler.getLanguage(req);
 
         String[] translationKeys = translator.translationKeys();
 
@@ -54,11 +49,14 @@ public class ContactAdd extends HttpServlet {
             model.put(i, translator.translate(i, language));
         }
 
-        if (req.getAttribute(ADD_STATUS) == null) {
-            model.put(ADD_STATUS, "");
+        if (req.getAttribute(NOTIFICATION) == null) {
+            model.put(NOTIFICATION, "");
+            model.put(NOTIFICATION_CONTACT, "");
         } else {
-            String addStatus = req.getAttribute(ADD_STATUS).toString();
-            model.put(ADD_STATUS, addStatus);
+            String notification = req.getAttribute(NOTIFICATION).toString();
+            String notificationContact = req.getAttribute(NOTIFICATION_CONTACT).toString();
+            model.put(NOTIFICATION, notification);
+            model.put(NOTIFICATION_CONTACT, notificationContact);
         }
 
         Template template = templateProvider.getTemplate(

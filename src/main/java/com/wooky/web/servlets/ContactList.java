@@ -22,6 +22,8 @@ import java.util.Map;
 public class ContactList extends HttpServlet {
 
     private static final String TEMPLATE_INDEX = "contact-list";
+    private static final String NOTIFICATION = "notification";
+    private static final String NOTIFICATION_CONTACT = "notificationContact";
 
     @Inject
     private TemplateProvider templateProvider;
@@ -53,13 +55,7 @@ public class ContactList extends HttpServlet {
 
         resp.addHeader("Content-Type", "text/html; charset=utf-8");
 
-        String language;
-
-        if (req.getAttribute("language") != null) {
-            language = req.getAttribute("language").toString();
-        } else {
-            language = languageHandler.getLanguage(req);
-        }
+        String language = languageHandler.getLanguage(req);
 
         String[] translationKeys = translator.translationKeys();
 
@@ -83,6 +79,16 @@ public class ContactList extends HttpServlet {
             model.put("contactList", contactList);
         }
 
+        if (req.getAttribute(NOTIFICATION) == null) {
+            model.put(NOTIFICATION, "");
+            model.put(NOTIFICATION_CONTACT, "");
+        } else {
+            String notification = req.getAttribute(NOTIFICATION).toString();
+            String notificationContact = req.getAttribute(NOTIFICATION_CONTACT).toString();
+            model.put(NOTIFICATION, notification);
+            model.put(NOTIFICATION_CONTACT, notificationContact);
+        }
+
         Template template = templateProvider.getTemplate(
                 getServletContext(), TEMPLATE_INDEX);
 
@@ -91,5 +97,10 @@ public class ContactList extends HttpServlet {
         } catch (TemplateException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        doGet(req, resp);
     }
 }

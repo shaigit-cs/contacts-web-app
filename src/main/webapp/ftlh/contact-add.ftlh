@@ -13,8 +13,8 @@
                     <input type="text" class="form-control" placeholder="${content_surname}" name="surname" required autocomplete="off">
                 </div>
             </div>
-            <button class="btn btn-secondary float-left" type="submit">${content_save}</button>
-            <p class="text-muted btn"><em>${addStatus}</em></p>
+            <a class="btn btn-secondary" href="list">${content_close}</a>
+            <button class="btn btn-secondary" type="submit">${content_save}</button>
         </form>
 
     </div>

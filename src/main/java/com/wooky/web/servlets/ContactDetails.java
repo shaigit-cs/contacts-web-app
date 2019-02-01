@@ -6,12 +6,15 @@ import com.wooky.model.Contact;
 import com.wooky.web.freemaker.TemplateProvider;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.inject.Inject;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -19,6 +22,7 @@ import java.util.Map;
 @WebServlet(urlPatterns = "details")
 public class ContactDetails extends HttpServlet {
 
+    private static final Logger LOG = LoggerFactory.getLogger(ContactDetails.class);
     private static final String TEMPLATE_INDEX = "contact-details";
 
     @Inject
@@ -36,9 +40,23 @@ public class ContactDetails extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 
+        HttpSession session = req.getSession();
+
         resp.addHeader("Content-Type", "text/html; charset=utf-8");
 
-        String idString = req.getParameter("id");
+        String idString;
+
+        if (req.getParameterMap().containsKey("id")) {
+            idString = req.getParameter("id");
+            session.setAttribute("session_req", req);
+            LOG.info("Request: {} stored in session: {}", req.hashCode(), session.getId());
+        } else {
+            LOG.info("Found session: {}", session.getId());
+            req = (HttpServletRequest) session.getAttribute("session_req");
+            LOG.info("Found request: {}", req.hashCode());
+            idString = req.getParameter("id");
+        }
+
         Long id = Long.parseLong(idString);
 
         String inputStatus;
@@ -49,13 +67,7 @@ public class ContactDetails extends HttpServlet {
             inputStatus = "";
         }
 
-        String language;
-
-        if (req.getAttribute("language") != null) {
-            language = req.getAttribute("language").toString();
-        } else {
-            language = languageHandler.getLanguage(req);
-        }
+        String language = languageHandler.getLanguage(req);
 
         String[] translationKeys = translator.translationKeys();
 
@@ -63,7 +75,7 @@ public class ContactDetails extends HttpServlet {
         model.put("activeList", "");
         model.put("activeAdd", "");
         model.put("currentLanguage", language);
-        model.put("referrer", "&referrer=list");
+        model.put("referrer", "&referrer=details");
         model.put("inputStatus", inputStatus);
 
         for (String i : translationKeys) {
@@ -81,5 +93,10 @@ public class ContactDetails extends HttpServlet {
         } catch (TemplateException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        doPost(req, resp);
     }
 }
