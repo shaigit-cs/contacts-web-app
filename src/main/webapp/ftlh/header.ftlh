@@ -11,6 +11,12 @@
     </head>
     <body>
 
+    <#if notification?has_content>
+        <div id="alert">
+            <p class="alert font-weight-light">${notification}<br>${notificationContact}</p>
+        </div>
+    </#if>
+
     <div class="container">
         <nav class="navbar fixed-top navbar-expand-md navbar-light bg-light container" id="menu_shadow">
             <ul class="navbar-nav mr-auto">

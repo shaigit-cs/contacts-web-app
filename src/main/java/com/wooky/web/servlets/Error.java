@@ -33,13 +33,7 @@ public class Error extends HttpServlet {
 
         resp.addHeader("Content-Type", "text/html; charset=utf-8");
 
-        String language;
-
-        if (req.getAttribute("language") != null) {
-            language = req.getAttribute("language").toString();
-        } else {
-            language = languageHandler.getLanguage(req);
-        }
+        String language = languageHandler.getLanguage(req);
 
         String[] translationKeys = translator.translationKeys();
 
