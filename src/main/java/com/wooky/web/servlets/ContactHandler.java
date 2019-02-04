@@ -96,6 +96,10 @@ public class ContactHandler extends HttpServlet {
         } else {
             existingContact.setName(caseCorrection(req.getParameter("name")));
             existingContact.setSurname(caseCorrection(req.getParameter("surname")));
+            existingContact.setEmail(caseCorrection(req.getParameter("email")));
+            existingContact.setPhoneCode(req.getParameter("code"));
+            existingContact.setPhone(req.getParameter("phone"));
+            existingContact.setBirthdate(dateParser(req.getParameter("birthdate")));
 
             contactDao.update(existingContact);
             LOG.info("Contact object updated: {}", existingContact);

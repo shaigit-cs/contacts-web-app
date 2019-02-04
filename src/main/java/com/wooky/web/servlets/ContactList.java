@@ -48,12 +48,12 @@ public class ContactList extends HttpServlet {
 
         Contact c1 = new Contact("Łukasz", "Marwitz", "lukaszmarwitz@gmail.com", "+48", "123456789", birthday);
         contactDao.save(c1);
-//        Contact c2 = new Contact("Ada", "Adamska", "ada89@wp.pl", "+48", "123456789");
-//        contactDao.save(c2);
-//        Contact c3 = new Contact("Zenek", "Martyniuk");
-//        contactDao.save(c3);
-//        Contact c4 = new Contact("Mirek", "Zakrzewski");
-//        contactDao.save(c4);
+        Contact c2 = new Contact("Ada", "Adamska", "ada89@wp.pl", "+48", "123456789", birthday);
+        contactDao.save(c2);
+        Contact c3 = new Contact("Zenek", "Martyniuk", "zmartyniuk@onet.eu", "+49", "111111111", birthday);
+        contactDao.save(c3);
+        Contact c4 = new Contact("Mirek", "Zakrzewski", "mirekz@me.com", "+44", "999999999", birthday);
+        contactDao.save(c4);
     }
 
     @Override
