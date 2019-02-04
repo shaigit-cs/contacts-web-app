@@ -13,10 +13,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 @WebServlet(urlPatterns = "list")
 public class ContactList extends HttpServlet {
@@ -37,18 +36,25 @@ public class ContactList extends HttpServlet {
     @Inject
     private ContactDao contactDao;
 
-//    @Override
-//    public void init() {
-//
-//        Contact c1 = new Contact("Łukasz", "Marwitz");
-//        contactDao.save(c1);
-//        Contact c2 = new Contact("Ada", "Adamska");
+    @Override
+    public void init() {
+
+        Date birthday = null;
+        try {
+            birthday = new SimpleDateFormat("yyyy-MM-dd").parse("1986-04-18");
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        Contact c1 = new Contact("Łukasz", "Marwitz", "lukaszmarwitz@gmail.com", "+48", "123456789", birthday);
+        contactDao.save(c1);
+//        Contact c2 = new Contact("Ada", "Adamska", "ada89@wp.pl", "+48", "123456789");
 //        contactDao.save(c2);
 //        Contact c3 = new Contact("Zenek", "Martyniuk");
 //        contactDao.save(c3);
 //        Contact c4 = new Contact("Mirek", "Zakrzewski");
 //        contactDao.save(c4);
-//    }
+    }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {

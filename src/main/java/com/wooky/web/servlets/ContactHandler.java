@@ -15,6 +15,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.transaction.Transactional;
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 @Transactional
@@ -23,9 +26,9 @@ public class ContactHandler extends HttpServlet {
 
     private static final Logger LOG = LoggerFactory.getLogger(ContactHandler.class);
     private static final String NOTIFICATION_SAVE = "notification_save";
-    private static final String NOTIFICATION_SAVE_ISSUE = "notification_save_issue";
     private static final String NOTIFICATION_UPDATE = "notification_update";
     private static final String NOTIFICATION_DELETE = "notification_delete";
+    private static final String DATE_FORMAT = "yyyy-MM-dd";
     private static final String SPACE = " ";
 
     @Inject
@@ -63,6 +66,10 @@ public class ContactHandler extends HttpServlet {
         final Contact c = new Contact();
         c.setName(caseCorrection(req.getParameter("name")));
         c.setSurname(caseCorrection(req.getParameter("surname")));
+        c.setEmail(caseCorrection(req.getParameter("email")));
+        c.setPhoneCode(req.getParameter("code"));
+        c.setPhone(req.getParameter("phone"));
+        c.setBirthdate(dateParser(req.getParameter("birthdate")));
 
         contactDao.save(c);
         LOG.info("Saved a new contact object: {}", c);
@@ -132,7 +139,28 @@ public class ContactHandler extends HttpServlet {
     }
 
     private String caseCorrection(String input) {
-        String output = input.substring(0, 1).toUpperCase() + input.substring(1).toLowerCase();
+
+        String output;
+
+        if (input.contains("@")) {
+            output = input.toLowerCase();
+        } else {
+            output = input.substring(0, 1).toUpperCase() + input.substring(1).toLowerCase();
+        }
+
+        return output;
+    }
+
+    private Date dateParser(String input) {
+
+        Date output = null;
+
+        try {
+            output = new SimpleDateFormat(DATE_FORMAT).parse(input);
+        } catch (ParseException e) {
+            LOG.error("Unable to parse input String date: {} to the following Date format: {}", input, DATE_FORMAT);
+        }
+
         return output;
     }
 }

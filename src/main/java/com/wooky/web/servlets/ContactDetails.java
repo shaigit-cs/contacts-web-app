@@ -59,12 +59,12 @@ public class ContactDetails extends HttpServlet {
 
         Long id = Long.parseLong(idString);
 
-        String inputStatus;
+        boolean editStatus;
 
         if (req.getParameter("edit") == null) {
-            inputStatus = "disabled";
+            editStatus = false;
         } else {
-            inputStatus = "";
+            editStatus = true;
         }
 
         String language = languageHandler.getLanguage(req);
@@ -76,7 +76,7 @@ public class ContactDetails extends HttpServlet {
         model.put("activeAdd", "");
         model.put("currentLanguage", language);
         model.put("referrer", "&referrer=details");
-        model.put("inputStatus", inputStatus);
+        model.put("editStatus", editStatus);
 
         for (String i : translationKeys) {
             model.put(i, translator.translate(i, language));

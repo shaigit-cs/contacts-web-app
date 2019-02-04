@@ -2,6 +2,19 @@
 
     <script src="js/jquery-3.3.1.min.js"></script>
     <script src="js/bootstrap-4.2.1.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.min.js"></script>
+    <script src="js/locales/bootstrap-datepicker.de.js" charset="UTF-8"></script>
+    <script src="js/locales/bootstrap-datepicker.pl.js" charset="UTF-8"></script>
+    <script>
+        $('#datepicker').datepicker({
+            format: 'yyyy-mm-dd',
+            weekStart: 1,
+            endDate: '0d',
+            todayHighlight: true,
+            language: '${currentLanguage}',
+            autoclose: true
+        });
+    </script>
 
     </body>
 </html>
