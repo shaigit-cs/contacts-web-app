@@ -25,7 +25,7 @@
                     <a class="nav-link" href="list" title="${menu_list}"><i class="fas fa-lg fa-list"></i></a>
                 </li>
                 <li class="nav-item">
-                    <form method="get" action="handler">
+                    <form method="post" action="handler">
                         <input type="hidden" name="action" value="search"/>
                         <input class="form-control mr-sm-2" id="search_box" type="search" name="phrase" placeholder="${menu_search}" aria-label="Search" required autocomplete="off">
                     </form>

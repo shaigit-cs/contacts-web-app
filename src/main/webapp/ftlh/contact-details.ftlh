@@ -21,7 +21,7 @@
                     </tr>
                     <tr class="d-flex">
                         <td class="col-4"><b>${content_phone}:</b></td>
-                        <td class="col-8">${contactDetails.phoneCode} ${contactDetails.phone}</td>
+                        <td class="col-8">&#43;${contactDetails.phoneCode} ${contactDetails.phone}</td>
                     </tr>
                     <tr class="d-flex">
                         <td class="col-4"><b>${content_birthdate}:</b></td>
@@ -32,7 +32,7 @@
                 <a class="btn btn-secondary" href="list">${content_close}</a>
                 <button class="btn btn-secondary" type="submit">${content_edit}</button>
         <#else>
-            <form method="get" action="handler">
+            <form method="post" action="handler">
                 <input type="hidden" name="id" value="${contactDetails.id}"/>
                 <div class="form-row">
                     <div class="col-md-3 mt-1 mb-3">
@@ -49,11 +49,11 @@
                 </div>
                 <div class="form-row">
                     <div class="col-md-1 mt-1 mb-3">
-                        <select class="form-control" name="code" required>
-                            <option value="${contactDetails.phoneCode}" selected disabled hidden>${contactDetails.phoneCode}</option>
-                            <option>+44</option>
-                            <option>+48</option>
-                            <option>+49</option>
+                        <select class="form-control" name="phone_code" autocomplete="off" required>
+                            <option value="${contactDetails.phoneCode}" selected hidden>&#43;${contactDetails.phoneCode}</option>
+                            <option value="44">+44</option>
+                            <option value="48">+48</option>
+                            <option value="49">+49</option>
                         </select>
                     </div>
                     <div class="col-md-3 mt-1 mb-3">

@@ -2,6 +2,8 @@ package com.wooky.model;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @Entity
@@ -103,6 +105,7 @@ public class Contact {
 
     @Override
     public String toString() {
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         final StringBuffer sb = new StringBuffer("Contact{");
         sb.append("id=").append(id);
         sb.append(", name='").append(name).append('\'');
@@ -110,7 +113,7 @@ public class Contact {
         sb.append(", email='").append(email).append('\'');
         sb.append(", phoneCode='").append(phoneCode).append('\'');
         sb.append(", phone='").append(phone).append('\'');
-        sb.append(", birthdate=").append(birthdate);
+        sb.append(", birthdate=").append(df.format(birthdate));
         sb.append('}');
         return sb.toString();
     }

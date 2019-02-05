@@ -3,7 +3,7 @@
 <div class="row">
     <div class="col-12" id="main">
 
-        <form method="get" action="handler">
+        <form method="post" action="handler">
             <input type="hidden" name="action" value="add"/>
             <div class="form-row">
                 <div class="col-md-3 mt-1 mb-3">
@@ -15,16 +15,16 @@
             </div>
             <div class="form-row">
                 <div class="col-md-6 mt-1 mb-3">
-                    <input type="text" class="form-control" placeholder="${content_email}" name="email" autocomplete="off" pattern="\b[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[a-zA-Z]{2,}\b" required>
+                    <input type="text" class="form-control" placeholder="${content_email}" name="email" autocomplete="off" pattern="^[a-zA-Z0-9][a-zA-Z0-9._%+-]{0,63}@(?:[a-zA-Z0-9-]{1,63}\.){1,8}[a-zA-Z]{2,4}$" required>
                 </div>
             </div>
             <div class="form-row">
                 <div class="col-md-1 mt-1 mb-3">
-                    <select class="form-control" name="code" required>
+                    <select class="form-control" name="phone_code" required>
                         <option value="" selected disabled hidden>${content_phone_code}</option>
-                        <option>+44</option>
-                        <option>+48</option>
-                        <option>+49</option>
+                        <option value="44">+44</option>
+                        <option value="48">+48</option>
+                        <option value="49">+49</option>
                     </select>
                 </div>
                 <div class="col-md-3 mt-1 mb-3">
