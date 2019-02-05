@@ -1,11 +1,8 @@
 package com.wooky.web.servlets;
 
-import com.wooky.core.Translator;
 import com.wooky.dao.ContactDao;
 import com.wooky.model.Contact;
 import com.wooky.web.freemaker.TemplateProvider;
-import freemarker.template.Template;
-import freemarker.template.TemplateException;
 
 import javax.inject.Inject;
 import javax.servlet.annotation.WebServlet;
@@ -13,61 +10,50 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 @WebServlet(urlPatterns = "list")
 public class ContactList extends HttpServlet {
 
-    private static final String TEMPLATE_INDEX = "contact-list";
-    private static final String NOTIFICATION = "notification";
-    private static final String NOTIFICATION_CONTACT = "notificationContact";
+    private static final String TEMPLATE_LIST = "contact-list";
 
     @Inject
     private TemplateProvider templateProvider;
 
     @Inject
-    private Translator translator;
-
-    @Inject
-    private LanguageHandler languageHandler;
-
-    @Inject
     private ContactDao contactDao;
+
+//    DEMO
 
 //    @Override
 //    public void init() {
 //
-//        Contact c1 = new Contact("Łukasz", "Marwitz");
+//        Date birthday = null;
+//        try {
+//            birthday = new SimpleDateFormat("yyyy-MM-dd").parse("1986-04-18");
+//        } catch (ParseException e) {
+//            e.printStackTrace();
+//        }
+//
+//        Contact c1 = new Contact("Łukasz", "Marwitz", "lukaszmarwitz@gmail.com", "48", "123456789", birthday);
 //        contactDao.save(c1);
-//        Contact c2 = new Contact("Ada", "Adamska");
+//        Contact c2 = new Contact("Ada", "Adamek", "ada89@wp.pl", "48", "123456789", birthday);
 //        contactDao.save(c2);
-//        Contact c3 = new Contact("Zenek", "Martyniuk");
+//        Contact c3 = new Contact("Zenek", "Martyniuk", "zmartyniuk@onet.eu", "49", "111111111", birthday);
 //        contactDao.save(c3);
-//        Contact c4 = new Contact("Mirek", "Zakrzewski");
+//        Contact c4 = new Contact("Mirek", "Zakrzewski", "mirekz@me.com", "44", "999999999", birthday);
 //        contactDao.save(c4);
 //    }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 
-        resp.addHeader("Content-Type", "text/html; charset=utf-8");
-
-        String language = languageHandler.getLanguage(req);
-
-        String[] translationKeys = translator.translationKeys();
-
-        Map<String, Object> model = new HashMap<>();
+        Map<String, Object> model = templateProvider.setTemplateProviderTop(req, resp);
         model.put("activeList", "active");
         model.put("activeAdd", "");
-        model.put("currentLanguage", language);
         model.put("referrer", "&referrer=list");
-
-        for (String i : translationKeys) {
-            model.put(i, translator.translate(i, language));
-        }
 
         if (req.getAttribute("searchResult") != null) {
             final List<Contact> searchResult = (ArrayList<Contact>) req.getAttribute("searchResult");
@@ -79,24 +65,7 @@ public class ContactList extends HttpServlet {
             model.put("contactList", contactList);
         }
 
-        if (req.getAttribute(NOTIFICATION) == null) {
-            model.put(NOTIFICATION, "");
-            model.put(NOTIFICATION_CONTACT, "");
-        } else {
-            String notification = req.getAttribute(NOTIFICATION).toString();
-            String notificationContact = req.getAttribute(NOTIFICATION_CONTACT).toString();
-            model.put(NOTIFICATION, notification);
-            model.put(NOTIFICATION_CONTACT, notificationContact);
-        }
-
-        Template template = templateProvider.getTemplate(
-                getServletContext(), TEMPLATE_INDEX);
-
-        try {
-            template.process(model, resp.getWriter());
-        } catch (TemplateException e) {
-            e.printStackTrace();
-        }
+        templateProvider.setTemplateProviderBottom(model, req, resp, getServletContext(), TEMPLATE_LIST);
     }
 
     @Override

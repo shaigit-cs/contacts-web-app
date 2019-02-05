@@ -1,11 +1,8 @@
 package com.wooky.web.servlets;
 
-import com.wooky.core.Translator;
 import com.wooky.dao.ContactDao;
 import com.wooky.model.Contact;
 import com.wooky.web.freemaker.TemplateProvider;
-import freemarker.template.Template;
-import freemarker.template.TemplateException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -16,23 +13,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.Map;
 
 @WebServlet(urlPatterns = "details")
 public class ContactDetails extends HttpServlet {
 
     private static final Logger LOG = LoggerFactory.getLogger(ContactDetails.class);
-    private static final String TEMPLATE_INDEX = "contact-details";
+    private static final String TEMPLATE_DETAILS = "contact-details";
 
     @Inject
     private TemplateProvider templateProvider;
-
-    @Inject
-    private Translator translator;
-
-    @Inject
-    private LanguageHandler languageHandler;
 
     @Inject
     private ContactDao contactDao;
@@ -40,11 +30,13 @@ public class ContactDetails extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 
-        HttpSession session = req.getSession();
-
-        resp.addHeader("Content-Type", "text/html; charset=utf-8");
+        Map<String, Object> model = templateProvider.setTemplateProviderTop(req, resp);
+        model.put("activeList", "");
+        model.put("activeAdd", "");
+        model.put("referrer", "&referrer=details");
 
         String idString;
+        HttpSession session = req.getSession();
 
         if (req.getParameterMap().containsKey("id")) {
             idString = req.getParameter("id");
@@ -57,42 +49,19 @@ public class ContactDetails extends HttpServlet {
             idString = req.getParameter("id");
         }
 
-        Long id = Long.parseLong(idString);
-
-        String inputStatus;
-
+        boolean editStatus;
         if (req.getParameter("edit") == null) {
-            inputStatus = "disabled";
+            editStatus = false;
         } else {
-            inputStatus = "";
+            editStatus = true;
         }
+        model.put("editStatus", editStatus);
 
-        String language = languageHandler.getLanguage(req);
-
-        String[] translationKeys = translator.translationKeys();
-
-        Map<String, Object> model = new HashMap<>();
-        model.put("activeList", "");
-        model.put("activeAdd", "");
-        model.put("currentLanguage", language);
-        model.put("referrer", "&referrer=details");
-        model.put("inputStatus", inputStatus);
-
-        for (String i : translationKeys) {
-            model.put(i, translator.translate(i, language));
-        }
-
+        Long id = Long.parseLong(idString);
         final Contact contactDetails = contactDao.findById(id);
         model.put("contactDetails", contactDetails);
 
-        Template template = templateProvider.getTemplate(
-                getServletContext(), TEMPLATE_INDEX);
-
-        try {
-            template.process(model, resp.getWriter());
-        } catch (TemplateException e) {
-            e.printStackTrace();
-        }
+        templateProvider.setTemplateProviderBottom(model, resp, getServletContext(), TEMPLATE_DETAILS);
     }
 
     @Override

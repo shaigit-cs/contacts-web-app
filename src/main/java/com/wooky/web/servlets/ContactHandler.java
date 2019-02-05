@@ -15,6 +15,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.transaction.Transactional;
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 @Transactional
@@ -22,10 +25,12 @@ import java.util.List;
 public class ContactHandler extends HttpServlet {
 
     private static final Logger LOG = LoggerFactory.getLogger(ContactHandler.class);
+    private static final String NOTIFICATION = "notification";
+    private static final String NOTIFICATION_CONTACT = "notificationContact";
     private static final String NOTIFICATION_SAVE = "notification_save";
-    private static final String NOTIFICATION_SAVE_ISSUE = "notification_save_issue";
     private static final String NOTIFICATION_UPDATE = "notification_update";
     private static final String NOTIFICATION_DELETE = "notification_delete";
+    private static final String DATE_FORMAT = "yyyy-MM-dd";
     private static final String SPACE = " ";
 
     @Inject
@@ -38,83 +43,64 @@ public class ContactHandler extends HttpServlet {
     private LanguageHandler languageHandler;
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         final String action = req.getParameter("action");
-        LOG.info("Requested action: {}", action);
+        LOG.info("Requested POST action: {}", action);
 
         if (action.equals("add")) {
             addContact(req, resp);
+        } else if (action.equals("search")) {
+            searchContact(req, resp);
         } else if (action.equals("update")) {
             updateContact(req, resp);
         } else if (action.equals("delete")) {
             deleteContact(req, resp);
-        } else if (action.equals("search")) {
-            searchContact(req, resp);
+        } else {
+            LOG.warn("Requested POST action not identified: {}", action);
         }
     }
 
     private void addContact(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
 
-        String language = languageHandler.getLanguage(req);
-        String notification;
-        String notificationContact;
+        final Contact newContact = new Contact();
+        setContact(newContact, req);
+        contactDao.save(newContact);
+        LOG.info("Saved a new contact: {}", newContact);
 
-        final Contact c = new Contact();
-        c.setName(caseCorrection(req.getParameter("name")));
-        c.setSurname(caseCorrection(req.getParameter("surname")));
-
-        contactDao.save(c);
-        LOG.info("Saved a new contact object: {}", c);
-
-        notification = translator.translate(NOTIFICATION_SAVE, language);
-        notificationContact = c.getName() + SPACE + c.getSurname();
-
-        req.setAttribute("notification", notification);
-        req.setAttribute("notificationContact", notificationContact);
-        req.getRequestDispatcher("/add").forward(req, resp);
+        setNotifications(req, newContact, NOTIFICATION_SAVE);
+        req.getRequestDispatcher("/list").forward(req, resp);
     }
 
     private void updateContact(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
 
-        String language = languageHandler.getLanguage(req);
-
         final Long id = Long.parseLong(req.getParameter("id"));
-        LOG.info("Updating contact with id: {}", id);
-
         final Contact existingContact = contactDao.findById(id);
+        LOG.info("Updating contact: {}", existingContact);
 
         if (existingContact == null) {
             LOG.info("No contact found with id = {}, nothing to be updated", id);
         } else {
-            existingContact.setName(caseCorrection(req.getParameter("name")));
-            existingContact.setSurname(caseCorrection(req.getParameter("surname")));
-
+            setContact(existingContact, req);
             contactDao.update(existingContact);
-            LOG.info("Contact object updated: {}", existingContact);
+            LOG.info("Contact updated as follows: {}", existingContact);
         }
 
-        String notification = translator.translate(NOTIFICATION_UPDATE, language);
-        String notificationContact = existingContact.getName() + SPACE + existingContact.getSurname();
-        req.setAttribute("notification", notification);
-        req.setAttribute("notificationContact", notificationContact);
+        setNotifications(req, existingContact, NOTIFICATION_UPDATE);
         req.getRequestDispatcher("/list").forward(req, resp);
     }
 
     private void deleteContact(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
 
-        String language = languageHandler.getLanguage(req);
-
         final Long id = Long.parseLong(req.getParameter("id"));
+        final Contact deleteContact = contactDao.findById(id);
+        LOG.info("Deleting contact: {}", deleteContact);
 
-        String notification = translator.translate(NOTIFICATION_DELETE, language);
-        String notificationContact = contactDao.findById(id).getName() + SPACE + contactDao.findById(id).getSurname();
+        setNotifications(req, deleteContact, NOTIFICATION_DELETE);
 
-        LOG.info("Deleting contact with id: {}", id);
         contactDao.delete(id);
 
-        req.setAttribute("notification", notification);
-        req.setAttribute("notificationContact", notificationContact);
+        LOG.info("Contact deleted");
         req.getRequestDispatcher("/list").forward(req, resp);
     }
 
@@ -132,7 +118,50 @@ public class ContactHandler extends HttpServlet {
     }
 
     private String caseCorrection(String input) {
-        String output = input.substring(0, 1).toUpperCase() + input.substring(1).toLowerCase();
+
+        String output;
+
+        if (input.contains("@")) {
+            output = input.toLowerCase();
+        } else {
+            output = input.substring(0, 1).toUpperCase() + input.substring(1).toLowerCase();
+        }
+
         return output;
+    }
+
+    private Date dateParser(String input) {
+
+        Date output = null;
+
+        try {
+            output = new SimpleDateFormat(DATE_FORMAT).parse(input);
+        } catch (ParseException e) {
+            LOG.error("Unable to parse input String date: {} to the following Date format: {}", input, DATE_FORMAT);
+        }
+
+        return output;
+    }
+
+    private Contact setContact(Contact contact, HttpServletRequest req) {
+
+        contact.setName(caseCorrection(req.getParameter("name")));
+        contact.setSurname(caseCorrection(req.getParameter("surname")));
+        contact.setEmail(caseCorrection(req.getParameter("email")));
+        contact.setPhoneCode(req.getParameter("phone_code"));
+        contact.setPhone(req.getParameter("phone"));
+        contact.setBirthdate(dateParser(req.getParameter("birthdate")));
+
+        return contact;
+    }
+
+    private void setNotifications(HttpServletRequest req, Contact contact, String notificationInfo) {
+
+        String language = languageHandler.getLanguage(req);
+
+        req.setAttribute(NOTIFICATION, translator.translate(notificationInfo, language));
+        req.setAttribute(NOTIFICATION_CONTACT, contact.getName() + SPACE + contact.getSurname());
+
+        LOG.info("Notifications set for: {}", contact);
     }
 }
