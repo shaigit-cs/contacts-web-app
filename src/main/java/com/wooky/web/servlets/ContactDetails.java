@@ -15,7 +15,7 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.Map;
 
-@WebServlet(urlPatterns = "details")
+@WebServlet("details")
 public class ContactDetails extends HttpServlet {
 
     private static final Logger LOG = LoggerFactory.getLogger(ContactDetails.class);

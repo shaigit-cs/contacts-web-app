@@ -13,4 +13,6 @@
     $ sh start.sh
     ```
 
-3. Thereafter open your browser and go to the following address: 0.0.0.0:4080
+3. Thereafter open your browser and go to the following address:
+
+    [0.0.0.0:4080](http://0.0.0.0:4080/ "Contacts Web App")

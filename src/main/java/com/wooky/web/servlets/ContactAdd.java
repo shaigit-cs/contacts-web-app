@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Map;
 
-@WebServlet(urlPatterns = "add")
+@WebServlet("add")
 public class ContactAdd extends HttpServlet {
 
     private static final String TEMPLATE_ADD = "contact-add";

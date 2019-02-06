@@ -4,6 +4,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.enterprise.context.ApplicationScoped;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
@@ -32,15 +34,30 @@ public class Translator {
     private static final String ERROR_INFO = "error_info";
     private static final String ERROR_RETURN = "error_return";
 
-    public String translate(String translationInput, String language) {
+    public String translate(String translationInput, HttpServletRequest req) {
 
-        Locale currentLocale = new Locale(language);
+        Locale currentLocale = new Locale(getLanguage(req));
         ResourceBundle bundle = ResourceBundle.getBundle("translations", currentLocale);
         String translationOutput = bundle.getString(translationInput);
 
         LOG.info("Returned translated text: {}", translationOutput);
 
         return translationOutput;
+    }
+
+    public String getLanguage(HttpServletRequest req) {
+
+        HttpSession session = req.getSession();
+
+        String language;
+
+        if (session.getAttribute("session_language") == null) {
+            language = "pl";
+        } else {
+            language = session.getAttribute("session_language").toString();
+        }
+
+        return language;
     }
 
     public String[] translationKeys() {

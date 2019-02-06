@@ -20,24 +20,9 @@ public class LanguageHandler extends HttpServlet {
 
         HttpSession session = req.getSession();
         session.setAttribute("session_language", language);
-        LOG.info("The following language was stored and set: {}", language);
+        LOG.info("The following language was stored in session and set: {}", language);
 
         resp.sendRedirect(referrer);
         LOG.info("Redirecting back to referrer: {}", referrer);
-    }
-
-    public String getLanguage(HttpServletRequest req) {
-
-        HttpSession session = req.getSession();
-
-        String language;
-
-        if (session.getAttribute("session_language") == null) {
-            language = "pl";
-        } else {
-            language = session.getAttribute("session_language").toString();
-        }
-
-        return language;
     }
 }

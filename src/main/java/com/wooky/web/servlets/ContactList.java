@@ -14,7 +14,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-@WebServlet(urlPatterns = "list")
+@WebServlet("list")
 public class ContactList extends HttpServlet {
 
     private static final String TEMPLATE_LIST = "contact-list";
