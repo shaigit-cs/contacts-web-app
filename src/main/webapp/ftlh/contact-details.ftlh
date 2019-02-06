@@ -44,7 +44,7 @@
                 </div>
                 <div class="form-row">
                     <div class="col-md-6 mt-1 mb-3">
-                        <input type="text" class="form-control" value="${contactDetails.email}" placeholder="${content_email}" name="email" autocomplete="off" pattern="\b[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[a-zA-Z]{2,}\b" required>
+                        <input type="text" class="form-control" value="${contactDetails.email}" placeholder="${content_email}" name="email" autocomplete="off" pattern="^[a-zA-Z0-9][a-zA-Z0-9._%+-]{0,63}@(?:[a-zA-Z0-9-]{1,63}\.){1,8}[a-zA-Z]{2,4}$" required>
                     </div>
                 </div>
                 <div class="form-row">

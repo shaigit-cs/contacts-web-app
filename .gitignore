@@ -3,7 +3,6 @@
 *.iml
 
 # Maven
-log/
 target/
 
 # macOS
