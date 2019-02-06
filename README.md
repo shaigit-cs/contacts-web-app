@@ -1,12 +1,16 @@
 # Contacts Web App
 
-##### CLI instructions to setup MySQL database in Docker for the application to run locally:
+##### Instructions to run the application locally.
 
-``` shell
-$ docker run --detach --name=mysql-docker --env="MYSQL_ROOT_PASSWORD=pass123" --env="TZ=Europe/Warsaw" --publish 6603:3306 mysql
-$ docker exec -it mysql-docker bash
+1. Requirements:
 
-# mysql -u root -p
+    - Maven
+    - Docker & Docker Compose
 
-mysql> create database contacts_db;
-```
+2. Open CLI, navigate to the project's main directory and enter the following:
+
+    ``` shell
+    $ sh start.sh
+    ```
+
+3. Thereafter open your browser and go to the following address: 0.0.0.0:4080
