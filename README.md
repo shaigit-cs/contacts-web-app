@@ -7,7 +7,7 @@
     - Maven
     - Docker & Docker Compose
 
-2. Open CLI, navigate to the project's main directory and enter the following:
+2. Open CLI, navigate to the project's main directory and run the following command:
 
     ``` shell
     $ sh start.sh
