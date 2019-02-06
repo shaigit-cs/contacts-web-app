@@ -9,7 +9,7 @@ services:
       - TZ=Europe/Warsaw
     ports:
       - 6306:3306
-  app:
+  web:
     image: jboss/wildfly
     command: bash -c "/opt/jboss/wildfly/bin/add-user.sh admin admin --silent
       && /opt/jboss/wildfly/bin/standalone.sh -b 0.0.0.0 -bmanagement 0.0.0.0"

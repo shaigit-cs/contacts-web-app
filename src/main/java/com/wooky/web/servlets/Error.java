@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Map;
 
-@WebServlet(urlPatterns = "error")
+@WebServlet("error")
 public class Error extends HttpServlet {
 
     private static final String TEMPLATE_ERROR = "error";

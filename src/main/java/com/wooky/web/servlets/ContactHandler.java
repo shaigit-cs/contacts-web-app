@@ -21,7 +21,7 @@ import java.util.Date;
 import java.util.List;
 
 @Transactional
-@WebServlet(urlPatterns = "handler")
+@WebServlet("handler")
 public class ContactHandler extends HttpServlet {
 
     private static final Logger LOG = LoggerFactory.getLogger(ContactHandler.class);
@@ -38,9 +38,6 @@ public class ContactHandler extends HttpServlet {
 
     @Inject
     private Translator translator;
-
-    @Inject
-    private LanguageHandler languageHandler;
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -79,7 +76,7 @@ public class ContactHandler extends HttpServlet {
         LOG.info("Updating contact: {}", existingContact);
 
         if (existingContact == null) {
-            LOG.info("No contact found with id = {}, nothing to be updated", id);
+            LOG.info("No contact found with id = {}, nothing to be updated.", id);
         } else {
             setContact(existingContact, req);
             contactDao.update(existingContact);
@@ -157,9 +154,7 @@ public class ContactHandler extends HttpServlet {
 
     private void setNotifications(HttpServletRequest req, Contact contact, String notificationInfo) {
 
-        String language = languageHandler.getLanguage(req);
-
-        req.setAttribute(NOTIFICATION, translator.translate(notificationInfo, language));
+        req.setAttribute(NOTIFICATION, translator.translate(notificationInfo, req));
         req.setAttribute(NOTIFICATION_CONTACT, contact.getName() + SPACE + contact.getSurname());
 
         LOG.info("Notifications set for: {}", contact);

@@ -36,15 +36,15 @@
                 <input type="hidden" name="id" value="${contactDetails.id}"/>
                 <div class="form-row">
                     <div class="col-md-3 mt-1 mb-3">
-                        <input type="text" class="form-control" value="${contactDetails.name}" placeholder="${content_name}" name="name" autocomplete="off" pattern="[a-zA-ZąćęłóśżźĄĆĘŁÓŚŻŹäöüäöüÄÖÜß]+" required>
+                        <input type="text" class="form-control" value="${contactDetails.name}" placeholder="${content_name}" name="name" autocomplete="off" pattern="${staticFields.getPatternName()}" required>
                     </div>
                     <div class="col-md-3 mt-1 mb-3">
-                        <input type="text" class="form-control" value="${contactDetails.surname}" placeholder="${content_surname}" name="surname" autocomplete="off" pattern="[a-zA-ZąćęłóśżźĄĆĘŁÓŚŻŹäöüäöüÄÖÜß]+" required>
+                        <input type="text" class="form-control" value="${contactDetails.surname}" placeholder="${content_surname}" name="surname" autocomplete="off" pattern="${staticFields.getPatternName()}" required>
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="col-md-6 mt-1 mb-3">
-                        <input type="text" class="form-control" value="${contactDetails.email}" placeholder="${content_email}" name="email" autocomplete="off" pattern="^[a-zA-Z0-9][a-zA-Z0-9._%+-]{0,63}@(?:[a-zA-Z0-9-]{1,63}\.){1,8}[a-zA-Z]{2,4}$" required>
+                        <input type="text" class="form-control" value="${contactDetails.email}" placeholder="${content_email}" name="email" autocomplete="off" pattern="${staticFields.getPatternEmail()}" required>
                     </div>
                 </div>
                 <div class="form-row">
@@ -57,11 +57,11 @@
                         </select>
                     </div>
                     <div class="col-md-3 mt-1 mb-3">
-                        <input type="text" class="form-control" value="${contactDetails.phone}" placeholder="${content_phone}" name="phone" autocomplete="off" pattern="[\d]+" required>
+                        <input type="text" class="form-control" value="${contactDetails.phone}" placeholder="${content_phone}" name="phone" autocomplete="off" pattern="${staticFields.getPatternPhone()}" required>
                     </div>
                     <div class="col-md-2 mt-1 mb-3">
                         <div class="input-group">
-                            <input type="text" class="form-control" id="datepicker" value="${contactDetails.birthdate?string["yyyy-MM-dd"]}" placeholder="${content_birthdate}" name="birthdate" autocomplete="off" pattern="^\d{4}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$" required>
+                            <input type="text" class="form-control" id="datepicker" value="${contactDetails.birthdate?string["yyyy-MM-dd"]}" placeholder="${content_birthdate}" name="birthdate" autocomplete="off" pattern="${staticFields.getPatternBirthdate()}" required>
                             <div class="input-group-append">
                             <span class="input-group-text">
                                 <i class="fas fa-calendar-alt"></i>
