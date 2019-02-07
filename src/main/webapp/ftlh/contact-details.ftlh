@@ -25,7 +25,7 @@
                     </tr>
                     <tr class="d-flex">
                         <td class="col-4"><b>${content_birthdate}:</b></td>
-                        <td class="col-8">${contactDetails.birthdate?date}</td>
+                        <td class="col-8">${contactDetails.birthdate?string["d MMMM yyyy"]}</td>
                     </tr>
                     </tbody>
                 </table>
