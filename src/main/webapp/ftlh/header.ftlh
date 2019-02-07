@@ -36,7 +36,7 @@
             </ul>
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a class="nav-link disabled" href="#">${menu_login}</a>
+                    <a class="nav-link ${activeLogin}" href="login">${menu_login}</a>
                 </li>
                 <li class="nav-item">
                     <span class="navbar-text" style="padding-left: 10px; padding-right: 10px">|</span>

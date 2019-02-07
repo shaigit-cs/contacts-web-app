@@ -34,7 +34,12 @@
 
                 <#else>
                     <#if visible>
-                        <p class="font-weight-light" id="empty_list">${list_empty}</p>
+                        <ul class="nav flex-column" id="empty_list">
+                            <li class="nav-item">
+                                <p class="font-weight-light">${list_empty}</p>
+                                <a class="nav-link font-weight-light" href="handler?action=demo">DEMO</a>
+                            </li>
+                        </ul>
                     </#if>
                 </#list>
 

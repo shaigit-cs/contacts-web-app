@@ -2,7 +2,6 @@ package com.wooky.web.freemaker;
 
 import com.wooky.core.StaticFields;
 import com.wooky.core.Translator;
-import com.wooky.web.servlets.LanguageHandler;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
@@ -28,9 +27,6 @@ public class TemplateProvider {
     @Inject
     private Translator translator;
 
-    @Inject
-    private StaticFields staticFields;
-
     public Template getTemplate(ServletContext servletContext, String templateName) throws IOException {
 
         Configuration cfg = new Configuration(Configuration.VERSION_2_3_28);
@@ -52,7 +48,7 @@ public class TemplateProvider {
 
         Map<String, Object> model = new HashMap<>();
         model.put("currentLanguage", translator.getLanguage(req));
-        model.put("staticFields", staticFields);
+        model.put("staticFields", StaticFields.getStaticFields());
 
         for (String i : translationKeys) {
             model.put(i, translator.translate(i, req));
