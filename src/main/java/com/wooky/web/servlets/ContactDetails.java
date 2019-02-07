@@ -33,6 +33,7 @@ public class ContactDetails extends HttpServlet {
         Map<String, Object> model = templateProvider.setTemplateProviderTop(req, resp);
         model.put("activeList", "");
         model.put("activeAdd", "");
+        model.put("activeLogin", "");
         model.put("referrer", "&referrer=details");
 
         String idString;

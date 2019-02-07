@@ -1,5 +1,7 @@
 package com.wooky.model;
 
+import com.wooky.core.StaticFields;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.text.DateFormat;
@@ -105,7 +107,7 @@ public class Contact {
 
     @Override
     public String toString() {
-        DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        DateFormat dateFormat = new SimpleDateFormat(StaticFields.getDateFormat());
         final StringBuffer sb = new StringBuffer("Contact{");
         sb.append("id=").append(id);
         sb.append(", name='").append(name).append('\'');
@@ -113,7 +115,7 @@ public class Contact {
         sb.append(", email='").append(email).append('\'');
         sb.append(", phoneCode='").append(phoneCode).append('\'');
         sb.append(", phone='").append(phone).append('\'');
-        sb.append(", birthdate=").append(df.format(birthdate));
+        sb.append(", birthdate=").append(dateFormat.format(birthdate));
         sb.append('}');
         return sb.toString();
     }

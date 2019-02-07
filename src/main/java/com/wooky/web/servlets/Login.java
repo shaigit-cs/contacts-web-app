@@ -10,10 +10,10 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Map;
 
-@WebServlet("add")
-public class ContactAdd extends HttpServlet {
+@WebServlet("login")
+public class Login extends HttpServlet {
 
-    private static final String TEMPLATE_ADD = "contact-add";
+    private static final String TEMPLATE_LOGIN = "login";
 
     @Inject
     private TemplateProvider templateProvider;
@@ -23,9 +23,9 @@ public class ContactAdd extends HttpServlet {
 
         Map<String, Object> model = templateProvider.setTemplateProviderTop(req, resp);
         model.put("activeList", "");
-        model.put("activeAdd", "active");
-        model.put("activeLogin", "");
-        model.put("referrer", "&referrer=add");
-        templateProvider.setTemplateProviderBottom(model, req, resp, getServletContext(), TEMPLATE_ADD);
+        model.put("activeAdd", "");
+        model.put("activeLogin", "active");
+        model.put("referrer", "&referrer=login");
+        templateProvider.setTemplateProviderBottom(model, resp, getServletContext(), TEMPLATE_LOGIN);
     }
 }
