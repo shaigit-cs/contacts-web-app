@@ -4,6 +4,7 @@
 
 1. Requirements:
 
+    - Java (version JDK 8)
     - Maven (version 3.6.0)
     - Docker (version 18.09.1)
     - Docker Compose (version 1.23.2)
