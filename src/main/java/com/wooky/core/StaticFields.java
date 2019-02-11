@@ -9,6 +9,7 @@ import javax.enterprise.context.ApplicationScoped;
 public class StaticFields {
 
     private static StaticFields staticFields;
+
     private static final Logger LOG = LoggerFactory.getLogger(StaticFields.class);
     private static final String PATTERN_NAME = "[a-zA-ZąćęłńóśżźĄĆĘŁŃÓŚŻŹäöüÄÖÜß]+";
     private static final String PATTERN_EMAIL = "^[a-zA-Z0-9][a-zA-Z0-9._%+-]{0,63}@(?:[a-zA-Z0-9-]{1,63}\\.){1,8}[a-zA-Z]{2,4}$";
@@ -20,7 +21,7 @@ public class StaticFields {
         LOG.info("Constructor initialized.");
     }
 
-    public static StaticFields getStaticFields() {
+    public static StaticFields getInstance() {
         if (staticFields == null) {
             staticFields = new StaticFields();
         }
