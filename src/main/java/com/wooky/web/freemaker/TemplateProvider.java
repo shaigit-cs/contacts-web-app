@@ -48,7 +48,7 @@ public class TemplateProvider {
 
         Map<String, Object> model = new HashMap<>();
         model.put("currentLanguage", translator.getLanguage(req));
-        model.put("staticFields", StaticFields.getStaticFields());
+        model.put("staticFields", StaticFields.getInstance());
 
         for (String i : translationKeys) {
             model.put(i, translator.translate(i, req));

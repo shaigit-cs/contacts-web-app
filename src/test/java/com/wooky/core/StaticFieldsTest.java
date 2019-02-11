@@ -8,8 +8,8 @@ public class StaticFieldsTest {
     @Test
     public void checkIfSingletonHasSameHash() {
 
-        StaticFields instance1 = StaticFields.getStaticFields();
-        StaticFields instance2 = StaticFields.getStaticFields();
+        StaticFields instance1 = StaticFields.getInstance();
+        StaticFields instance2 = StaticFields.getInstance();
 
         assertThat(instance1).hasSameHashCodeAs(instance2);
     }
