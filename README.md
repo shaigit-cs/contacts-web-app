@@ -4,8 +4,9 @@
 
 1. Requirements:
 
-    - Maven
-    - Docker & Docker Compose
+    - Maven (version 3.6.0)
+    - Docker (version 18.09.1)
+    - Docker Compose (version 1.23.2)
 
 2. Open CLI, navigate to the project's main directory and run the following command:
 
