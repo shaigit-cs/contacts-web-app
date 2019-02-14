@@ -15,10 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.transaction.Transactional;
 import java.io.IOException;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 @Transactional
@@ -31,7 +28,6 @@ public class ContactHandler extends HttpServlet {
     private static final String NOTIFICATION_SAVE = "notification_save";
     private static final String NOTIFICATION_UPDATE = "notification_update";
     private static final String NOTIFICATION_DELETE = "notification_delete";
-    private static final String DATE_FORMAT = StaticFields.getDateFormat();
     private static final String SPACE = " ";
 
     @Inject
@@ -87,7 +83,7 @@ public class ContactHandler extends HttpServlet {
         }
 
         setNotifications(req, existingContact, NOTIFICATION_UPDATE);
-        req.getRequestDispatcher("/list").forward(req, resp);
+        req.getRequestDispatcher("/details").forward(req, resp);
     }
 
     private void deleteContact(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
@@ -130,15 +126,11 @@ public class ContactHandler extends HttpServlet {
         return output;
     }
 
-    private Date dateParser(String input) {
+    private LocalDate dateParser(String input) {
 
-        Date output = null;
+        LOG.info("Parsing date: {}", input);
 
-        try {
-            output = new SimpleDateFormat(DATE_FORMAT).parse(input);
-        } catch (ParseException e) {
-            LOG.error("Unable to parse input String date: {} to the following Date format: {}", input, DATE_FORMAT);
-        }
+        LocalDate output = LocalDate.parse(input, StaticFields.getDateTimeFormatter());
 
         return output;
     }
@@ -170,24 +162,18 @@ public class ContactHandler extends HttpServlet {
         LOG.info("Requested GET action: {}", action);
 
         if (action.equals("demo")) {
-            try {
-                demo(resp);
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
+            demo(resp);
         } else {
             LOG.warn("Requested GET action not identified: {}", action);
         }
     }
 
-    private void demo(HttpServletResponse resp) throws IOException, ParseException {
+    private void demo(HttpServletResponse resp) throws IOException {
 
-        DateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT);
-
-        Date birthday1 = dateFormat.parse("1986-04-18");
-        Date birthday2 = dateFormat.parse("2001-02-05");
-        Date birthday3 = dateFormat.parse("1962-12-02");
-        Date birthday4 = dateFormat.parse("1971-08-30");
+        LocalDate birthday1 = dateParser("1986-04-18");
+        LocalDate birthday2 = dateParser("2001-02-05");
+        LocalDate birthday3 = dateParser("1962-12-02");
+        LocalDate birthday4 = dateParser("1971-08-30");
 
         Contact c1 = new Contact("Łukasz", "Marwitz", "lukaszmarwitz@gmail.com", "48", "123456789", birthday1);
         contactDao.save(c1);

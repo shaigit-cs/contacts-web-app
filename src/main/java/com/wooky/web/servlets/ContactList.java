@@ -2,7 +2,7 @@ package com.wooky.web.servlets;
 
 import com.wooky.dao.ContactDao;
 import com.wooky.model.Contact;
-import com.wooky.web.freemaker.TemplateProvider;
+import com.wooky.web.freemaker.TemplateBuilder;
 
 import javax.inject.Inject;
 import javax.servlet.annotation.WebServlet;
@@ -18,7 +18,7 @@ public class ContactList extends HttpServlet {
     private static final String TEMPLATE_LIST = "contact-list";
 
     @Inject
-    private TemplateProvider templateProvider;
+    private TemplateBuilder templateBuilder;
 
     @Inject
     private ContactDao contactDao;
@@ -26,7 +26,7 @@ public class ContactList extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 
-        Map<String, Object> model = templateProvider.setTemplateProviderTop(req, resp);
+        Map<String, Object> model = templateBuilder.setTemplateTop(req, resp);
         model.put("activeList", "active");
         model.put("activeAdd", "");
         model.put("activeLogin", "");
@@ -42,7 +42,7 @@ public class ContactList extends HttpServlet {
             model.put("contactList", contactList);
         }
 
-        templateProvider.setTemplateProviderBottom(model, req, resp, getServletContext(), TEMPLATE_LIST);
+        templateBuilder.setTemplateBottom(model, req, resp, getServletContext(), TEMPLATE_LIST);
     }
 
     @Override

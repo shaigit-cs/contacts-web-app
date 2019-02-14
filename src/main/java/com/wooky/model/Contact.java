@@ -4,9 +4,7 @@ import com.wooky.core.StaticFields;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "CONTACTS")
@@ -39,12 +37,12 @@ public class Contact {
 
     @Column(name = "birthdate")
     @NotNull
-    private Date birthdate;
+    private LocalDate birthdate;
 
     public Contact() {
     }
 
-    public Contact(String name, String surname, String email, String phoneCode, String phone, Date birthdate) {
+    public Contact(String name, String surname, String email, String phoneCode, String phone, LocalDate birthdate) {
         this.name = name;
         this.surname = surname;
         this.email = email;
@@ -97,17 +95,16 @@ public class Contact {
         this.phone = phone;
     }
 
-    public Date getBirthdate() {
+    public LocalDate getBirthdate() {
         return birthdate;
     }
 
-    public void setBirthdate(Date birthdate) {
+    public void setBirthdate(LocalDate birthdate) {
         this.birthdate = birthdate;
     }
 
     @Override
     public String toString() {
-        DateFormat dateFormat = new SimpleDateFormat(StaticFields.getDateFormat());
         final StringBuffer sb = new StringBuffer("Contact{");
         sb.append("id=").append(id);
         sb.append(", name='").append(name).append('\'');
@@ -115,7 +112,7 @@ public class Contact {
         sb.append(", email='").append(email).append('\'');
         sb.append(", phoneCode='").append(phoneCode).append('\'');
         sb.append(", phone='").append(phone).append('\'');
-        sb.append(", birthdate=").append(dateFormat.format(birthdate));
+        sb.append(", birthdate=").append(birthdate.format(StaticFields.getDateTimeFormatter()));
         sb.append('}');
         return sb.toString();
     }
