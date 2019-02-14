@@ -25,7 +25,7 @@
                     </tr>
                     <tr class="d-flex">
                         <td class="col-4"><b>${content_birthdate}:</b></td>
-                        <td class="col-8">${contactDetails.birthdate?string["d MMMM yyyy"]}</td>
+                        <td class="col-8">${contactDetails.birthdate.format('d MMMM yyyy')}</td>
                     </tr>
                     </tbody>
                 </table>
@@ -61,7 +61,7 @@
                     </div>
                     <div class="col-md-2 mt-1 mb-3">
                         <div class="input-group">
-                            <input type="text" class="form-control" id="datepicker" value="${contactDetails.birthdate?string["yyyy-MM-dd"]}" placeholder="${content_birthdate}" name="birthdate" autocomplete="off" pattern="${staticFields.getPatternBirthdate()}" required>
+                            <input type="text" class="form-control" id="datepicker" value="${contactDetails.birthdate}" placeholder="${content_birthdate}" name="birthdate" autocomplete="off" pattern="${staticFields.getPatternBirthdate()}" required>
                             <div class="input-group-append">
                             <span class="input-group-text">
                                 <i class="fas fa-calendar-alt"></i>

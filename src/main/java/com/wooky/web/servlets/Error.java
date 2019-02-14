@@ -1,6 +1,6 @@
 package com.wooky.web.servlets;
 
-import com.wooky.web.freemaker.TemplateProvider;
+import com.wooky.web.freemaker.TemplateBuilder;
 
 import javax.inject.Inject;
 import javax.servlet.annotation.WebServlet;
@@ -16,16 +16,16 @@ public class Error extends HttpServlet {
     private static final String TEMPLATE_ERROR = "error";
 
     @Inject
-    private TemplateProvider templateProvider;
+    private TemplateBuilder templateBuilder;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 
-        Map<String, Object> model = templateProvider.setTemplateProviderTop(req, resp);
+        Map<String, Object> model = templateBuilder.setTemplateTop(req, resp);
         model.put("activeList", "");
         model.put("activeAdd", "");
         model.put("activeLogin", "");
         model.put("referrer", "&referrer=error");
-        templateProvider.setTemplateProviderBottom(model, resp, getServletContext(), TEMPLATE_ERROR);
+        templateBuilder.setTemplateBottom(model, resp, getServletContext(), TEMPLATE_ERROR);
     }
 }
