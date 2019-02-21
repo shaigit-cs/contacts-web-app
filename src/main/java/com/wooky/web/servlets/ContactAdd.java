@@ -24,7 +24,6 @@ public class ContactAdd extends HttpServlet {
         Map<String, Object> model = templateBuilder.setTemplateTop(req, resp);
         model.put("activeList", "");
         model.put("activeAdd", "active");
-        model.put("activeLogin", "");
         model.put("referrer", "&referrer=add");
         templateBuilder.setTemplateBottom(model, req, resp, getServletContext(), TEMPLATE_ADD);
     }

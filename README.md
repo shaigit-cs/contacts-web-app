@@ -6,6 +6,8 @@ Manage your private and business contacts.
 
 - Add, search, modify or delete your entries
 - Switch between one of three available interface languages: Polish, English, German
+- View also adapted to mobile devices
+- Minimalistic design
 
 ### Instructions to run the application locally
 

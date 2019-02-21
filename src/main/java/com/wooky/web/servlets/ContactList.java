@@ -29,11 +29,11 @@ public class ContactList extends HttpServlet {
         Map<String, Object> model = templateBuilder.setTemplateTop(req, resp);
         model.put("activeList", "active");
         model.put("activeAdd", "");
-        model.put("activeLogin", "");
         model.put("referrer", "&referrer=list");
 
         if (req.getAttribute("searchResult") != null) {
-            final List<Contact> searchResult = (ArrayList<Contact>) req.getAttribute("searchResult");
+            @SuppressWarnings("unchecked")
+            final List<Contact> searchResult = (List<Contact>) req.getAttribute("searchResult");
             model.put("contactList", searchResult);
             model.put("searchPhrase", "' " + req.getAttribute("searchPhrase") + " '");
             model.put("searchResultSize", req.getAttribute("searchResultSize"));

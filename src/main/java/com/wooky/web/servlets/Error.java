@@ -24,7 +24,6 @@ public class Error extends HttpServlet {
         Map<String, Object> model = templateBuilder.setTemplateTop(req, resp);
         model.put("activeList", "");
         model.put("activeAdd", "");
-        model.put("activeLogin", "");
         model.put("referrer", "&referrer=error");
         templateBuilder.setTemplateBottom(model, resp, getServletContext(), TEMPLATE_ERROR);
     }
