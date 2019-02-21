@@ -16,7 +16,7 @@ services:
     command: bash -c "/opt/jboss/wildfly/bin/add-user.sh admin admin --silent
       && /opt/jboss/wildfly/bin/standalone.sh -b 0.0.0.0 -bmanagement 0.0.0.0"
     volumes:
-      - ./target/contacts-app-1.0-SNAPSHOT.war:/opt/jboss/wildfly/standalone/deployments/contacts-app-1.0-SNAPSHOT.war
+      - ./target/contacts-web-app-1.0-SNAPSHOT.war:/opt/jboss/wildfly/standalone/deployments/contacts-web-app-1.0-SNAPSHOT.war
     ports:
       - 4080:8080
       - 5990:9990
