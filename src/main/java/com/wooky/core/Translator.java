@@ -20,9 +20,6 @@ public class Translator {
     private static final String CONTENT_NAME = "content_name";
     private static final String CONTENT_SURNAME = "content_surname";
     private static final String CONTENT_EMAIL = "content_email";
-    private static final String CONTENT_PASSWORD = "content_password";
-    private static final String CONTENT_LOGIN = "content_login";
-    private static final String CONTENT_SIGNUP = "content_signup";
     private static final String CONTENT_PHONE_CODE = "content_phone_code";
     private static final String CONTENT_PHONE = "content_phone";
     private static final String CONTENT_BIRTHDATE = "content_birthdate";
@@ -66,9 +63,9 @@ public class Translator {
     public String[] translationKeys() {
 
         String[] output = { MENU_LIST, MENU_SEARCH, MENU_ADD, MENU_LOGIN, CONTENT_NAME, CONTENT_SURNAME, CONTENT_EMAIL,
-                CONTENT_PASSWORD, CONTENT_LOGIN, CONTENT_SIGNUP, CONTENT_PHONE_CODE, CONTENT_PHONE, CONTENT_BIRTHDATE,
-                CONTENT_SAVE, CONTENT_CLOSE, CONTENT_EDIT, CONTENT_UPDATE, CONTENT_DELETE, LIST_EMPTY, ERROR_INFO,
-                ERROR_RETURN, SEARCH_INFO_PART_1, SEARCH_INFO_PART_2 };
+                CONTENT_PHONE_CODE, CONTENT_PHONE, CONTENT_BIRTHDATE, CONTENT_SAVE, CONTENT_CLOSE, CONTENT_EDIT,
+                CONTENT_UPDATE, CONTENT_DELETE, LIST_EMPTY, ERROR_INFO, ERROR_RETURN, SEARCH_INFO_PART_1,
+                SEARCH_INFO_PART_2 };
 
         return output;
     }

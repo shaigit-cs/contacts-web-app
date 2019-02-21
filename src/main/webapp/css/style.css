@@ -39,7 +39,7 @@ body {
 
 @media screen and (max-width: 767px) {
     body {
-        padding-top: 216px;
+        padding-top: 136px;
     }
 
     #main {
@@ -48,7 +48,7 @@ body {
     }
 
     .alert {
-        margin-top: -216px;
+        margin-top: -136px;
         position: absolute;
     }
 }
