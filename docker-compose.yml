@@ -8,8 +8,8 @@ services:
       - MYSQL_ROOT_PASSWORD=pass123
       - MYSQL_DATABASE=contacts_db
       - TZ=Europe/Warsaw
-    ports:
-      - 6306:3306
+    expose:
+      - 3306
   wildfly:
     image: jboss/wildfly
     container_name: contacts_app_server
@@ -19,6 +19,6 @@ services:
       - ./target/contacts-web-app-1.0-SNAPSHOT.war:/opt/jboss/wildfly/standalone/deployments/contacts-web-app-1.0-SNAPSHOT.war
     ports:
       - 4080:8080
-      - 5990:9990
+      - 80:8080
     depends_on:
       - mysql

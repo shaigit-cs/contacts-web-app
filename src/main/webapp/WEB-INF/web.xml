@@ -29,10 +29,7 @@
     <data-source>
         <name>java:ds/contacts-app</name>
         <class-name>com.mysql.cj.jdbc.MysqlDataSource</class-name>
-        <!-- DOCKER -->
         <url>jdbc:mysql://contacts_db_server:3306/contacts_db</url>
-        <!-- LOCAL -->
-        <!--<url>jdbc:mysql://0.0.0.0:6306/contacts_db</url>-->
         <user>root</user>
         <password>pass123</password>
     </data-source>

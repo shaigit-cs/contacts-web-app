@@ -25,6 +25,6 @@ public class Error extends HttpServlet {
         model.put("activeList", "");
         model.put("activeAdd", "");
         model.put("referrer", "&referrer=error");
-        templateBuilder.setTemplateBottom(model, resp, getServletContext(), TEMPLATE_ERROR);
+        templateBuilder.setTemplateBottom(model, resp, getServletContext(), TEMPLATE_ERROR, req);
     }
 }

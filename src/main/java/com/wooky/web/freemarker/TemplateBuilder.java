@@ -55,12 +55,12 @@ public class TemplateBuilder {
             model.put(NOTIFICATION_CONTACT, notificationContact);
         }
 
-        setTemplateBottom(model, resp, servletContext, templateName);
+        setTemplateBottom(model, resp, servletContext, templateName, req);
     }
 
-    public void setTemplateBottom(Map<String, Object> model, HttpServletResponse resp, ServletContext servletContext, String templateName) throws IOException {
+    public void setTemplateBottom(Map<String, Object> model, HttpServletResponse resp, ServletContext servletContext, String templateName, HttpServletRequest req) throws IOException {
 
-        Template template = templateProvider.getTemplate(servletContext, templateName);
+        Template template = templateProvider.getTemplate(servletContext, templateName, translator.getLanguage(req));
 
         try {
             template.process(model, resp.getWriter());
