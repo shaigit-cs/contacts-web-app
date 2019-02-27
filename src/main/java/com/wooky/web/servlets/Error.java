@@ -1,6 +1,6 @@
 package com.wooky.web.servlets;
 
-import com.wooky.web.freemaker.TemplateBuilder;
+import com.wooky.web.freemarker.TemplateBuilder;
 
 import javax.inject.Inject;
 import javax.servlet.annotation.WebServlet;

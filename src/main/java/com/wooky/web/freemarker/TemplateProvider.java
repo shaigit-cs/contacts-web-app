@@ -1,4 +1,4 @@
-package com.wooky.web.freemaker;
+package com.wooky.web.freemarker;
 
 import freemarker.template.Configuration;
 import freemarker.template.Template;

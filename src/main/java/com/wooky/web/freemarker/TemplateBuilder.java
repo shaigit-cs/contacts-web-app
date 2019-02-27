@@ -1,4 +1,4 @@
-package com.wooky.web.freemaker;
+package com.wooky.web.freemarker;
 
 import com.wooky.core.StaticFields;
 import com.wooky.core.Translator;
