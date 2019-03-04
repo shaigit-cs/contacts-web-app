@@ -8,6 +8,9 @@ services:
       - MYSQL_ROOT_PASSWORD=pass123
       - MYSQL_DATABASE=contacts_db
       - TZ=Europe/Warsaw
+    volumes:
+      - ./contacts-db:/var/lib/mysql
+      - ./src/main/resources/contacts-db-script.sql:/docker-entrypoint-initdb.d/contacts-db-script.sql
     expose:
       - 3306
   wildfly:

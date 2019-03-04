@@ -8,5 +8,8 @@
 # Maven
 target/
 
+# Docker Volume
+contacts-db/
+
 # macOS
 .DS_Store
