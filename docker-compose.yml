@@ -1,5 +1,7 @@
 version: "3"
+
 services:
+
   mysql:
     image: mysql
     container_name: contacts_db_server
@@ -13,6 +15,7 @@ services:
       - ./src/main/resources/contacts-db-script.sql:/docker-entrypoint-initdb.d/contacts-db-script.sql
     expose:
       - 3306
+
   wildfly:
     image: jboss/wildfly
     container_name: contacts_app_server
