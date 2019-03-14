@@ -1,4 +1,4 @@
-# Contacts Web App test
+# Contacts Web App
 
 Manage your private and business contacts.
 
