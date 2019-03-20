@@ -39,8 +39,6 @@ public class ContactHandler extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        req.setCharacterEncoding("utf-8");
-
         final String action = req.getParameter("action");
         LOG.info("Requested POST action: {}", action);
 
