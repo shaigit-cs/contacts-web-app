@@ -71,17 +71,17 @@ public class ContactHandler extends HttpServlet {
 
         final Long id = Long.parseLong(req.getParameter("id"));
         final Contact existingContact = contactDao.findById(id);
-        LOG.info("Updating contact: {}", existingContact);
 
         if (existingContact == null) {
             LOG.info("No contact found with id = {}, nothing to be updated.", id);
         } else {
+            LOG.info("Updating contact: {}", existingContact);
             setContact(existingContact, req);
             contactDao.update(existingContact);
             LOG.info("Contact updated as follows: {}", existingContact);
+            setNotifications(req, existingContact, NOTIFICATION_UPDATE);
         }
 
-        setNotifications(req, existingContact, NOTIFICATION_UPDATE);
         req.getRequestDispatcher("/details").forward(req, resp);
     }
 
