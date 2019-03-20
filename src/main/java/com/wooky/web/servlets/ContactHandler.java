@@ -23,6 +23,7 @@ import java.util.List;
 public class ContactHandler extends HttpServlet {
 
     private static final Logger LOG = LoggerFactory.getLogger(ContactHandler.class);
+    private static final String LIST_URL_PATTERN = "/list";
     private static final String NOTIFICATION = "notification";
     private static final String NOTIFICATION_CONTACT = "notificationContact";
     private static final String NOTIFICATION_SAVE = "notification_save";
@@ -38,8 +39,6 @@ public class ContactHandler extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
-        req.setCharacterEncoding("utf-8");
 
         final String action = req.getParameter("action");
         LOG.info("Requested POST action: {}", action);
@@ -65,7 +64,7 @@ public class ContactHandler extends HttpServlet {
         LOG.info("Saved a new contact: {}", newContact);
 
         setNotifications(req, newContact, NOTIFICATION_SAVE);
-        req.getRequestDispatcher("/list").forward(req, resp);
+        req.getRequestDispatcher(LIST_URL_PATTERN).forward(req, resp);
     }
 
     private void updateContact(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
@@ -97,7 +96,7 @@ public class ContactHandler extends HttpServlet {
         contactDao.delete(id);
 
         LOG.info("Contact deleted");
-        req.getRequestDispatcher("/list").forward(req, resp);
+        req.getRequestDispatcher(LIST_URL_PATTERN).forward(req, resp);
     }
 
     private void searchContact(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
@@ -110,7 +109,7 @@ public class ContactHandler extends HttpServlet {
         req.setAttribute("searchResult", searchResult);
         req.setAttribute("searchPhrase", searchPhrase);
         req.setAttribute("searchResultSize", searchResult.size());
-        req.getRequestDispatcher("/list").forward(req, resp);
+        req.getRequestDispatcher(LIST_URL_PATTERN).forward(req, resp);
     }
 
     private String caseCorrection(String input) {

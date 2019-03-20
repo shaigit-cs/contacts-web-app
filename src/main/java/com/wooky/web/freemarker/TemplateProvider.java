@@ -20,7 +20,7 @@ public class TemplateProvider {
 
         Configuration cfg = new Configuration(Configuration.VERSION_2_3_28);
 
-        cfg.setDefaultEncoding("UTF-8");
+        cfg.setDefaultEncoding("utf-8");
         cfg.setTemplateExceptionHandler(TemplateExceptionHandler.RETHROW_HANDLER);
         cfg.setLogTemplateExceptions(true);
         cfg.setWrapUncheckedExceptions(true);
