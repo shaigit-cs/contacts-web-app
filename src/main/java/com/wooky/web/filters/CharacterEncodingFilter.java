@@ -9,7 +9,7 @@ public class CharacterEncodingFilter implements Filter {
 
     @Override
     public void init(FilterConfig filterConfig) {
-
+        //nothing to initialize
     }
 
     @Override
@@ -21,6 +21,6 @@ public class CharacterEncodingFilter implements Filter {
 
     @Override
     public void destroy() {
-
+        //nothing to destroy
     }
 }
