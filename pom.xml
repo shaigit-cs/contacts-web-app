@@ -30,7 +30,7 @@
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-core</artifactId>
-            <version>5.2.12.Final</version>
+            <version>5.4.2.Final</version>
             <exclusions>
                 <exclusion>
                     <groupId>dom4j</groupId>
@@ -54,7 +54,7 @@
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
-            <version>8.0.11</version>
+            <version>8.0.16</version>
         </dependency>
 
         <!-- FreeMarker -->
@@ -75,14 +75,14 @@
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-simple</artifactId>
-            <version>1.7.25</version>
+            <version>1.7.26</version>
         </dependency>
 
         <!--JUnit 5-->
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-engine</artifactId>
-            <version>5.3.2</version>
+            <version>5.5.0-M1</version>
             <scope>test</scope>
         </dependency>
 
@@ -90,7 +90,7 @@
         <dependency>
             <groupId>org.assertj</groupId>
             <artifactId>assertj-core</artifactId>
-            <version>3.11.1</version>
+            <version>3.12.2</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
