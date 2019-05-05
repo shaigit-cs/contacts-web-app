@@ -29,7 +29,7 @@
     <data-source>
         <name>java:ds/contacts-app</name>
         <class-name>com.mysql.cj.jdbc.MysqlDataSource</class-name>
-        <url>jdbc:mysql://contacts_db_server:3306/contacts_db?useUnicode=true&amp;useJDBCCompliantTimezoneShift=true&amp;useLegacyDatetimeCode=false&amp;serverTimezone=UTC</url>
+        <url>jdbc:mysql://contacts_db_server:3306/contacts_db?serverTimezone=Europe/Warsaw</url>
         <user>root</user>
         <password>pass123</password>
     </data-source>
