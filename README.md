@@ -13,7 +13,7 @@ Manage your private and business contacts.
 
 1. Requirements:
 
-    - Java (version JDK 8)
+    - Java (version JDK 11)
     - Maven (version 3.6.0)
     - Docker (version 18.09.1)
     - Docker Compose (version 1.23.2)
@@ -34,8 +34,8 @@ Manage your private and business contacts.
 
 ### Technology stack
 
-- Java SE 8
-- Java EE 7
+- Java SE 11
+- Java EE 8
 - Hibernate
 - FreeMarker
 - Bootstrap

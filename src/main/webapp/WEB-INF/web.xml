@@ -27,7 +27,7 @@
         <location>/error.html</location>
     </error-page>
     <data-source>
-        <name>java:ds/contacts-app</name>
+        <name>java:contacts-app-ds</name>
         <class-name>com.mysql.cj.jdbc.MysqlDataSource</class-name>
         <url>jdbc:mysql://contacts_db_server:3306/contacts_db?serverTimezone=Europe/Warsaw</url>
         <user>root</user>

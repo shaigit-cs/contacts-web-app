@@ -3,7 +3,7 @@ version: "3"
 services:
 
   mysql:
-    image: mysql
+    image: mysql:8.0.17
     container_name: contacts_db_server
     command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_polish_ci
     environment:
@@ -17,7 +17,7 @@ services:
       - 3306
 
   wildfly:
-    image: jboss/wildfly
+    image: jboss/wildfly:17.0.1.Final
     container_name: contacts_app_server
     command: bash -c "/opt/jboss/wildfly/bin/add-user.sh admin admin --silent
       && /opt/jboss/wildfly/bin/standalone.sh -b 0.0.0.0 -bmanagement 0.0.0.0"
