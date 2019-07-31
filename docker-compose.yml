@@ -6,6 +6,7 @@ services:
     image: mysql:8.0.17
     container_name: contacts_db_server
     command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_polish_ci
+      --default-authentication-plugin=mysql_native_password
     environment:
       - MYSQL_ROOT_PASSWORD=pass123
       - MYSQL_DATABASE=contacts_db

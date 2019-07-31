@@ -26,7 +26,7 @@ Manage your private and business contacts.
 
 3. Thereafter open your browser and go to the following address:
 
-    [0.0.0.0:4080](http://0.0.0.0:4080/ "Contacts Web App")
+    [localhost:4080](http://localhost:4080/ "Contacts Web App")
 
 4. Alternatively please find below a link to the online presentation of the application:
 
