@@ -28,10 +28,6 @@ Manage your private and business contacts.
 
     [localhost:4080](http://localhost:4080/ "Contacts Web App")
 
-4. Alternatively please find below a link to the online presentation of the application:
-
-    [contacts.w00ky.com](http://contacts.w00ky.com/ "Contacts Web App")
-
 ### Technology stack
 
 - Java SE 11
